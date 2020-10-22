@@ -46,6 +46,8 @@ struct Index<'i> {
 
     #[serde(borrow)]
     pub ngrams: HashMap<Vec<String>, HashSet<&'i str>>,
+
+    pub indexed_sites: HashSet<String>
 }
 
 impl<'i> Index<'i> {
@@ -97,6 +99,7 @@ async fn run<'i>(config: &mut Config) {
     let mut index = Index {
         unigrams: HashMap::new(),
         ngrams: HashMap::new(),
+        indexed_sites: HashSet::new()
     };
 
     for website in &config.websites {
@@ -290,6 +293,9 @@ fn index_texts<'i>(texts: HashSet<Vec<String>>, index: &mut Index<'i>, url: &'i 
         }
     }
 
+    index.indexed_sites.insert(url.to_string());
+
+    println!("indexed sites length: {:#?}", index.indexed_sites.len());
     println!("unigram index length: {:#?}", index.unigrams.len());
     println!("ngram index length: {:#?}", index.ngrams.len());
 }
