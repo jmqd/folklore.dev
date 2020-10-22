@@ -19,10 +19,12 @@ not just the first.
 
 ## TODO
 
-1. Fix indexing to map 1:N, instead of 1:1. (Overwriting prev. matches)
+1. Fix indexing to map `1:N`, instead of `1:1`.
 2. Add selected git repos as sources for indexing.
 3. Wrap this in an HTTP server, then deploy it to https://folklore.dev
-4. Support exact text matches for ngrams greater than trigrams. (true ngrams)
+4. Support exact text matches for ngrams greater than trigrams.
+5. Explore real indexing algorithms and data structures, instead of my
+   hacked-together stuff. (Patricia tree might be good.)
 
 ## Future roadmap items?
 
