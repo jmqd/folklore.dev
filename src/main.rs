@@ -73,8 +73,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 async fn run<'i>(config: &mut Config) {
-    if std::fs::metadata(std::path::Path::new("/tmp/index.toml")).is_ok() {
-        let cached_index = &std::fs::read("/tmp/index.toml").unwrap();
+    if std::fs::metadata(std::path::Path::new("/tmp/index.bin")).is_ok() {
+        let cached_index = &std::fs::read("/tmp/index.bin").unwrap();
         let index: Index = bincode::deserialize(cached_index).unwrap();
         loop {
             cli_testing(&index);
@@ -95,7 +95,7 @@ async fn run<'i>(config: &mut Config) {
         };
     }
     let serialized = bincode::serialize(&index).expect("Could not encode JSON value");
-    std::fs::write("/tmp/index.json", serialized).expect("Could not write to file!");
+    std::fs::write("/tmp/index.bin", serialized).expect("Could not write to file!");
     loop {
         cli_testing(&index);
     }
