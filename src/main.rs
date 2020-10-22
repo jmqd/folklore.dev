@@ -93,7 +93,7 @@ async fn run<'i>(config: &mut Config) {
             None => (),
         };
     }
-    let serialized = bincode::serialize(&index).expect("Could not encode JSON value");
+    let serialized = bincode::serialize(&index).expect("Could not encode bincode.");
     std::fs::write("/tmp/index.bin", serialized).expect("Could not write to file!");
     loop {
         cli_testing(&index);
