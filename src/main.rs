@@ -13,6 +13,12 @@ use std::collections::HashSet;
 use std::io;
 use std::iter::Iterator;
 
+#[derive(Debug)]
+struct Query {
+    pub exact_ngram: Option<Vec<String>>,
+    pub unigrams: Option<Vec<String>>,
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 struct Config {
     pub websites: Vec<Website>,
@@ -106,7 +112,7 @@ fn cli_testing(index: &Index) {
         Ok(n) => {
             println!("{} bytes read", n);
             println!("{}", input);
-            println!("Query: {:?}", query(input, index));
+            println!("Query results: {:?}", query(input, index));
         }
         Err(error) => println!("error: {}", error),
     }
@@ -159,26 +165,42 @@ fn extract_texts(document: &Document) -> HashSet<Vec<String>> {
 }
 
 fn query(query_str: String, index: &Index) -> Option<HashSet<String>> {
-    if query_str.starts_with('"') && query_str.trim().ends_with('"') {
-        let inner_query_str = query_str
-            .strip_prefix('"')
-            .unwrap()
-            .trim()
-            .strip_suffix('"')
-            .unwrap()
-            .to_lowercase();
-        let parts: Vec<String> = inner_query_str
-            .split_whitespace()
-            .into_iter()
-            .map(|s| s.to_string())
-            .collect();
+    lazy_static! {
+        static ref QUERY_PARSER: Regex = Regex::new("(?:\"(.*)\")?\\s(.+)?").unwrap();
+    }
+    let captures = QUERY_PARSER.captures(&query_str).unwrap();
+    let query = Query {
+        exact_ngram: match captures.get(1) {
+            None => None,
+            Some(exact) => Some(
+                exact
+                    .as_str()
+                    .split_whitespace()
+                    .into_iter()
+                    .map(|s| s.to_lowercase().to_string())
+                    .collect(),
+            ),
+        },
+        unigrams: match captures.get(2) {
+            None => None,
+            Some(unigrams) => Some(
+                unigrams
+                    .as_str()
+                    .split_whitespace()
+                    .into_iter()
+                    .map(|s| s.to_lowercase().to_string())
+                    .collect(),
+            ),
+        },
+    };
 
-        match parts.len() {
-            1 => index.unigram_match(&parts[0]),
-            _ => index.ngram_match(&parts),
-        }
-    } else {
-        None
+    println!("Parsed query: {:?}", query);
+    match query.exact_ngram {
+        None => None,
+        Some(ngram) => match ngram.len() {
+            1 => index.unigram_match(&ngram[0]),
+            _ => index.ngram_match(&ngram),
+        },
     }
 }
 
