@@ -93,7 +93,7 @@ async fn run<'i>(config: &mut Config) {
     };
 
     for website in &config.websites {
-        println!("Fetching {:?}...", &website.url);
+        println!("Fetching {:#?}...", &website.url);
         match fetch(&website.url).await {
             Some(document) => index_texts(extract_texts(&document), &mut index, &website.url),
             None => (),
@@ -112,7 +112,7 @@ fn cli_testing(index: &Index) {
         Ok(n) => {
             println!("{} bytes read", n);
             println!("{}", input);
-            println!("Query results: {:?}", query(input, index));
+            println!("Query results: {:#?}", query(input, index));
         }
         Err(error) => println!("error: {}", error),
     }
@@ -136,7 +136,7 @@ async fn fetch(url: &str) -> Option<Document> {
         Ok(resp) => {
             let text = resp.text().await.unwrap();
 
-            println!("Got the site. Caching {:?}", &cache_path);
+            println!("Got the site. Caching {:#?}", &cache_path);
             let parent = cache_path.parent();
             match parent {
                 Some(path) => std::fs::create_dir_all(&path).expect("Failed to create dirs"),
@@ -147,7 +147,7 @@ async fn fetch(url: &str) -> Option<Document> {
             Some(Document::from(text.as_ref()))
         }
         Err(e) => {
-            println!("Error when getting site: {:?}", e);
+            println!("Error when getting site: {:#?}", e);
             None
         }
     }
@@ -194,7 +194,7 @@ fn query(query_str: String, index: &Index) -> Option<HashSet<String>> {
         },
     };
 
-    println!("Parsed query: {:?}", query);
+    println!("Parsed query: {:#?}", query);
     match query.exact_ngram {
         None => None,
         Some(ngram) => match ngram.len() {
@@ -239,8 +239,8 @@ fn index_texts<'i>(texts: HashSet<Vec<String>>, index: &mut Index<'i>, url: &'i 
         }
     }
 
-    println!("unigram index length: {:?}", index.unigrams.len());
-    println!("ngram index length: {:?}", index.ngrams.len());
+    println!("unigram index length: {:#?}", index.unigrams.len());
+    println!("ngram index length: {:#?}", index.ngrams.len());
 }
 
 fn has_search_terms(s: &str) -> bool {
