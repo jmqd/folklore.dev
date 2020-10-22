@@ -165,7 +165,8 @@ fn query(query_str: String, index: &Index) -> Option<HashSet<String>> {
             .unwrap()
             .trim()
             .strip_suffix('"')
-            .unwrap();
+            .unwrap()
+            .to_lowercase();
         let parts: Vec<String> = inner_query_str
             .split_whitespace()
             .into_iter()
