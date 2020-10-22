@@ -21,7 +21,6 @@ struct Config {
 #[derive(Serialize, Deserialize, Debug)]
 struct Website {
     pub url: String,
-    pub cached_contents: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]
