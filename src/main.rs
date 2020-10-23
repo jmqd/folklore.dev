@@ -39,18 +39,25 @@ struct Website {
 /// from each other. For example, a gram cannot span from one paragraph or
 /// div tag into another.
 ///
-/// unigrams: A mapping from all words to all documents those words appear in.
-///
-/// ngrams: A mapping from all ngrams to all documents those ngrams appear in.
+/// In the unigram and ngram index data structures, we don't actually store the
+/// words and URLs there. That would consume much more memory. Instead, we
+/// assign each word and URL a unique u64 number, then map everything in the
+/// indexes to these u64 integers. How to translate between the u64 integer and
+/// the corresponding value is recorded in the `document_codes` and `word_codes`
+/// members. At query time, we translate everything to numbers, perform the
+/// search, then at the last moment, after finding all the matches, we translate
+/// the results back to Strings for the user.
 struct Index {
-    //#[serde(borrow)]
+    /// A mapping from all words to all documents those words appear in.
     pub unigrams: HashMap<usize, HashSet<usize>>,
 
-    //#[serde(borrow)]
+    /// A mapping from all ngrams to all documents those ngrams appear in.
     pub ngrams: HashMap<Vec<usize>, HashSet<usize>>,
 
+    /// A bi-mapping from document_ids (e.g. URL strings) to its integer code.
     pub document_codes: BiMap<String, usize>,
 
+    /// A bi-mapping from words to thier integer code.
     pub word_codes: BiMap<String, usize>,
 }
 
