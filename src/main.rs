@@ -243,7 +243,7 @@ async fn crawl(
         .unwrap();
 
     let mut handles: Vec<task::JoinHandle<(Option<HashSet<Vec<String>>>, String)>> = vec![];
-    for url in urls {
+    for url in urls.into_iter().filter(|l| link_looks_interesting(l)) {
         handles.push(task::spawn(async move {
             (
                 extract_texts(fetch(client, &url.to_string(), 0).await.as_ref()),
@@ -260,6 +260,16 @@ async fn crawl(
     }
 
     documents
+}
+
+fn link_looks_interesting(link: &reqwest::Url) -> bool {
+    let s = link.to_string();
+    lazy_static! {
+        static ref DISALLOWED_ENDINGS: Vec<&'static str> =
+            vec![".pdf", ".png", ".jpg", ".jpeg", ".gif", ".xml", ".rss", ".css", ".js", ".mov"];
+    }
+
+    DISALLOWED_ENDINGS.iter().all(|ending| !s.ends_with(ending))
 }
 
 fn extract_links_same_host(domain: Url, document: &Document) -> Vec<Url> {
