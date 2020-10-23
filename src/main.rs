@@ -11,8 +11,9 @@ use select::predicate::Name;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::collections::HashSet;
-use std::io;
 use std::iter::Iterator;
+use std::{io, thread, time};
+use tokio::task;
 use url::{ParseError, Url};
 
 #[derive(Debug)]
@@ -190,6 +191,15 @@ async fn run<'i>(config: &mut Config) {
 }
 
 async fn build_index<'i>(websites: &'i Vec<Website>) -> Index {
+    lazy_static! {
+        static ref CLIENT: reqwest::Client = reqwest::Client::builder()
+            .connect_timeout(time::Duration::from_millis(2048))
+            .timeout(time::Duration::from_millis(2048))
+            .user_agent("folklore.dev\tPoint of contact: Jordan McQueen <j@jm.dev>")
+            .build()
+            .unwrap();
+    }
+
     let mut index = Index {
         unigrams: HashMap::new(),
         ngrams: HashMap::new(),
@@ -198,11 +208,9 @@ async fn build_index<'i>(websites: &'i Vec<Website>) -> Index {
     };
 
     for website in websites {
-        for (document, id) in crawl(&website.url).await {
-            match document {
-                Some(document) => {
-                    index.index_texts(id, extract_texts(&document));
-                }
+        for (texts, id) in crawl(&CLIENT, &website.url).await {
+            match texts {
+                Some(texts) => index.index_texts(id, texts),
                 None => (),
             };
         }
@@ -222,79 +230,118 @@ fn cli_testing(index: &Index) {
     }
 }
 
-async fn crawl(url: &str) -> Vec<(Option<Document>, String)> {
+async fn crawl(
+    client: &'static reqwest::Client,
+    url: &str,
+) -> Vec<(Option<HashSet<Vec<String>>>, String)> {
     let mut documents = Vec::new();
-    let mut urls = Vec::new();
     let root = Url::parse(url).unwrap();
-    documents.push((fetch(url).await, url.to_string()));
-    documents[0].0.as_ref().map(|d| {
-        d.find(Name("a")).for_each(|node| {
-            let link = match node.attr("href") {
-                None => None,
-                Some(link) => Some(Url::parse(link)),
-            };
+    let root_document = fetch(client, url, 0).await;
+    documents.push((extract_texts(root_document.as_ref()), url.to_string()));
+    let urls = root_document
+        .map(|d| extract_links_same_host(root, &d))
+        .unwrap();
 
-            let link = match link {
-                Some(Ok(link)) => {
-                    if link.host() == root.host() {
-                        Some(link)
-                    } else {
-                        None
-                    }
-                }
-                Some(Err(e)) => match e {
-                    ParseError::RelativeUrlWithoutBase => {
-                        match root.clone().join(node.attr("href").unwrap()) {
-                            Ok(link) => Some(link),
-                            Err(e) => {
-                                println!("Error when trying to fix link: {:#?}", e);
-                                None
-                            }
-                        }
-                    }
-                    _ => {
-                        println!("Error with link: {:#?}", e);
-                        None
-                    }
-                },
-                _ => None,
-            };
+    let mut handles: Vec<task::JoinHandle<(Option<HashSet<Vec<String>>>, String)>> = vec![];
+    for url in urls {
+        handles.push(task::spawn(async move {
+            (
+                extract_texts(fetch(client, &url.to_string(), 0).await.as_ref()),
+                url.to_string(),
+            )
+        }));
 
-            if link.is_some() {
-                urls.push(link.unwrap());
-            }
-        });
-    });
+        // Let's be nice to our friends' servers.
+        thread::sleep(time::Duration::from_millis(64));
+    }
 
-    for link in urls {
-        documents.push((fetch(&link.to_string()).await, link.to_string()));
+    for handle in handles {
+        documents.push(handle.await.unwrap());
     }
 
     documents
 }
 
-async fn fetch(url: &str) -> Option<Document> {
-    match reqwest::get(url).await {
-        Ok(resp) => {
-            let text = resp.text().await.unwrap();
-            Some(Document::from(text.as_ref()))
+fn extract_links_same_host(domain: Url, document: &Document) -> Vec<Url> {
+    let mut urls: Vec<Url> = vec![];
+    document.find(Name("a")).for_each(|node| {
+        let link = match node.attr("href") {
+            None => None,
+            Some(link) => Some(Url::parse(link)),
+        };
+
+        let link = match link {
+            Some(Ok(link)) => {
+                if link.host() == domain.host() {
+                    Some(link)
+                } else {
+                    None
+                }
+            }
+            Some(Err(e)) => match e {
+                ParseError::RelativeUrlWithoutBase => {
+                    match domain.join(node.attr("href").unwrap()) {
+                        Ok(link) => Some(link),
+                        Err(e) => {
+                            println!("Error when trying to fix link: {:#?}", e);
+                            None
+                        }
+                    }
+                }
+                _ => {
+                    println!("Error with link: {:#?}", e);
+                    None
+                }
+            },
+            _ => None,
+        };
+
+        if link.is_some() {
+            urls.push(link.unwrap());
         }
+    });
+    urls
+}
+
+async fn fetch(client: &reqwest::Client, url: &str, attempt: u64) -> Option<Document> {
+    match client.get(url).send().await {
+        Ok(resp) => resp_to_document(resp).await,
         Err(e) => {
             println!("Error when getting site: {:#?}", e);
+            while attempt < 4 {
+                thread::sleep(time::Duration::from_millis(attempt * 512));
+                let doc = match client.get(url).send().await {
+                    Ok(resp) => resp_to_document(resp).await,
+                    _ => None,
+                };
+
+                if doc.is_some() {
+                    return doc;
+                }
+            }
             None
         }
     }
 }
 
-fn extract_texts(document: &Document) -> HashSet<Vec<String>> {
+async fn resp_to_document(resp: reqwest::Response) -> Option<Document> {
+    let text = resp.text().await.unwrap();
+    Some(Document::from(text.as_ref()))
+}
+
+fn extract_texts(document: Option<&Document>) -> Option<HashSet<Vec<String>>> {
+    if document.is_none() {
+        return None;
+    }
+
     let mut texts = HashSet::new();
-    for node in document.find(Any) {
+    for node in document.unwrap().find(Any) {
         if has_search_terms(&node.text()) {
             let ngram = canonicalize_ngram(node.text().split_whitespace().collect::<Vec<&str>>());
             texts.insert(ngram);
         }
     }
-    texts
+    Some(texts)
 }
 
 fn query(query_str: String, index: &Index) -> Option<HashSet<String>> {
