@@ -2,7 +2,6 @@
 extern crate lazy_static;
 
 use bimap::BiMap;
-use bincode;
 use itertools::Itertools;
 use regex::Regex;
 use reqwest;
@@ -77,6 +76,7 @@ impl Index {
     }
 
     fn index_texts(&mut self, document_id: String, texts: HashSet<Vec<String>>) {
+        println!("Indexing document {}", document_id);
         let document_code = self.get_or_generate_document_code(document_id);
 
         for ngram in texts.into_iter() {
@@ -182,14 +182,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 async fn run<'i>(config: &mut Config) {
-    if std::fs::metadata(std::path::Path::new("/tmp/index.bin")).is_ok() {
-        let cached_index = &std::fs::read("/tmp/index.bin").unwrap();
-        let index: Index = bincode::deserialize(cached_index).unwrap();
-        loop {
-            cli_testing(&index);
-        }
-    }
-
     let index = build_index(&config.websites).await;
 
     loop {
@@ -206,7 +198,6 @@ async fn build_index<'i>(websites: &'i Vec<Website>) -> Index {
     };
 
     for website in websites {
-        // println!("Fetching {:#?}...", &website.url);
         for (document, id) in crawl(&website.url).await {
             match document {
                 Some(document) => {
@@ -246,7 +237,6 @@ async fn crawl(url: &str) -> Vec<(Option<Document>, String)> {
             let link = match link {
                 Some(Ok(link)) => {
                     if link.host() == root.host() {
-                        // println!("Links are on same host: {:#?} and {:#?}", root, link);
                         Some(link)
                     } else {
                         None
@@ -280,42 +270,13 @@ async fn crawl(url: &str) -> Vec<(Option<Document>, String)> {
         documents.push((fetch(&link.to_string()).await, link.to_string()));
     }
 
-    //println!("{:#?} more links to get: {:#?}", urls.len(), urls);
     documents
 }
 
 async fn fetch(url: &str) -> Option<Document> {
-    let cache_path: std::path::PathBuf = std::path::Path::new(&format!(
-        "/tmp/{}",
-        url.trim_start_matches("https://")
-            .trim_start_matches("http://")
-            .trim_end_matches("/")
-    ))
-    .to_path_buf();
-
-    if cache_path.to_str().unwrap().to_string().contains("..") {
-        println!("Nasty hackers... {:#?}", cache_path);
-        return None;
-    }
-
-    if std::fs::metadata(std::path::Path::new(&cache_path)).is_ok() {
-        return Some(Document::from(
-            std::fs::read_to_string(&cache_path).unwrap().as_ref(),
-        ));
-    }
-
     match reqwest::get(url).await {
         Ok(resp) => {
             let text = resp.text().await.unwrap();
-
-            println!("Got the site. Caching {:#?}", &cache_path);
-            let parent = cache_path.parent();
-            match parent {
-                Some(path) => std::fs::create_dir_all(&path).expect("Failed to create dirs"),
-                None => (),
-            };
-
-            std::fs::write(&cache_path, text.clone()).expect("Failed to write website contents.");
             Some(Document::from(text.as_ref()))
         }
         Err(e) => {
