@@ -202,7 +202,7 @@ async fn build_index<'i>(websites: &'i Vec<Website>) -> Index {
         static ref CLIENT: reqwest::Client = reqwest::Client::builder()
             .connect_timeout(time::Duration::from_millis(2048))
             .timeout(time::Duration::from_millis(2048))
-            .user_agent("folklore.dev\tPoint of contact: Jordan McQueen <j@jm.dev>")
+            .user_agent("folklore.dev\tI'm human, if a bit Rusty. POC: Jordan McQueen <j@jm.dev>")
             .build()
             .unwrap();
     }
