@@ -257,7 +257,7 @@ async fn crawl(
 ) -> Vec<(Option<HashSet<Vec<String>>>, String)> {
     let mut documents = Vec::new();
     let root = Url::parse(url).unwrap();
-    let root_document = fetch(client, url, 0).await;
+    let root_document = fetch(db.clone(), client, url, 0).await;
     documents.push((extract_texts(root_document.as_ref()), url.to_string()));
     let urls = root_document
         .map(|d| extract_links_same_host(root, &d))
@@ -267,7 +267,7 @@ async fn crawl(
     for url in urls.into_iter().filter(|l| link_looks_interesting(l)) {
         let conn = db.clone();
         handles.push(task::spawn(async move {
-            match database::read_texts(conn, &url.to_string()) {
+            match database::read_texts(conn.clone(), &url.to_string()) {
                 Some(texts) => {
                     println!("Cache hit! {:#?}", url);
                     (Some(texts), url.to_string())
@@ -276,7 +276,7 @@ async fn crawl(
                     // Let's be nice to our friends' servers.
                     thread::sleep(time::Duration::from_millis(64));
                     (
-                        extract_texts(fetch(client, &url.to_string(), 0).await.as_ref()),
+                        extract_texts(fetch(conn, client, &url.to_string(), 0).await.as_ref()),
                         url.to_string(),
                     )
                 }
@@ -342,15 +342,33 @@ fn extract_links_same_host(domain: Url, document: &Document) -> Vec<Url> {
     urls
 }
 
-async fn fetch(client: &reqwest::Client, url: &str, attempt: u64) -> Option<Document> {
+async fn fetch(
+    db: Arc<ConnPool>,
+    client: &reqwest::Client,
+    url: &str,
+    attempt: u64,
+) -> Option<Document> {
+    if let Some(document) = database::read_document(db.clone(), url) {
+        return Some(document);
+    }
+
     match client.get(url).send().await {
-        Ok(resp) => resp_to_document(resp).await,
+        Ok(resp) => {
+            let body = resp.text().await.unwrap();
+            database::save_document(db, url, &body).expect("Failed to write document to db.");
+            resp_to_document(body).await
+        }
         Err(e) => {
             println!("Error when getting site: {:#?}", e);
             while attempt < 4 {
                 thread::sleep(time::Duration::from_millis(attempt * 512));
                 let doc = match client.get(url).send().await {
-                    Ok(resp) => resp_to_document(resp).await,
+                    Ok(resp) => {
+                        let body = resp.text().await.unwrap();
+                        database::save_document(db.clone(), url, &body)
+                            .expect("Failed to write document to db.");
+                        resp_to_document(body).await
+                    }
                     _ => None,
                 };
 
@@ -363,9 +381,8 @@ async fn fetch(client: &reqwest::Client, url: &str, attempt: u64) -> Option<Docu
     }
 }
 
-async fn resp_to_document(resp: reqwest::Response) -> Option<Document> {
-    let text = resp.text().await.unwrap();
-    Some(Document::from(text.as_ref()))
+async fn resp_to_document(resp_body: String) -> Option<Document> {
+    Some(Document::from(resp_body.as_ref()))
 }
 
 fn extract_texts(document: Option<&Document>) -> Option<HashSet<Vec<String>>> {
