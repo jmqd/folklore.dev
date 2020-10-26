@@ -107,7 +107,15 @@ pub fn read_texts(db: Arc<ConnPool>, document_id: &str) -> Option<HashSet<Vec<St
 pub fn read_document(db: Arc<ConnPool>, document_id: &str) -> Option<Document> {
     let conn = db.get().expect("Failed to get connection.");
     let mut stmt = conn
-        .prepare("SELECT body FROM documents WHERE id = ?1")
+        .prepare(
+            "SELECT
+               body
+             FROM
+               documents
+            WHERE
+               id = ?1
+               AND body IS NOT NULL",
+        )
         .unwrap();
     let body: Option<String> = stmt
         .query_row(params![document_id], |row| row.get(0))
