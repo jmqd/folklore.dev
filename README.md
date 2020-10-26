@@ -1,13 +1,15 @@
 # folklore.dev
 
-A search engine, but only from trusted engineering resources. (Blogs, papers,
-git commits, talks, etc.)
+A search engine, but one that only indexes trusted engineering resources with
+high-quality content. (Blogs, papers, git commits, talks, etc.)
 
 ## Why?
 
-Google kind of sucks. Increasingly, I use `site: example.com` in my queries,
-because I get better results that way. So I've decided to build my own little
-search engine that only searches sites that I trust and have a desire to read.
+Google kind of sucks. Increasingly, I use `site:example.com` in my queries,
+because I get better results when I target specific sites. I'm getting tired of
+working around all the chaff in normal search engines, so I've decided to build
+my own little search engine that only indexes sites that I trust and have a
+desire to read.
 
 What you read is important. I don't want to read crap. Small blogs written by
 smart people have lost discoverability lately. They don't make money, so there's
