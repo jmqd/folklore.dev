@@ -112,7 +112,7 @@ pub fn read_document(db: Arc<ConnPool>, document_id: &str) -> Option<Document> {
                body
              FROM
                documents
-            WHERE
+             WHERE
                id = ?1
                AND body IS NOT NULL",
         )
