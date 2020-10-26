@@ -365,7 +365,7 @@ async fn fetch(
         Err(e) => {
             println!("Error when getting site: {:#?}", e);
             while attempt < 4 {
-                thread::sleep(time::Duration::from_millis(attempt * 1024));
+                thread::sleep(time::Duration::from_millis(++attempt * 512));
                 let doc = match client.get(url).send().await {
                     Ok(resp) => {
                         let body = resp.text().await.unwrap();
