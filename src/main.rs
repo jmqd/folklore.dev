@@ -2,19 +2,26 @@
 extern crate lazy_static;
 
 use bimap::BiMap;
+use gflags;
 use itertools::Itertools;
 use regex::Regex;
 use reqwest;
 use select::document::Document;
+mod database;
+use r2d2;
+use r2d2_sqlite::SqliteConnectionManager;
 use select::predicate::Any;
 use select::predicate::Name;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::collections::HashSet;
 use std::iter::Iterator;
+use std::sync::Arc;
 use std::{io, thread, time};
 use tokio::task;
 use url::{ParseError, Url};
+
+type ConnPool = r2d2::Pool<SqliteConnectionManager>;
 
 #[derive(Debug)]
 struct Query {
@@ -182,27 +189,30 @@ impl Index {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let args = gflags::parse();
+    println!("Binary arguments: {:#?}", args);
+    let db = database::connect_to_db();
     let mut config: Config = toml::from_str(std::include_str!("../data.toml"))
         .expect("Failed to deserialized config file.");
 
-    run(&mut config).await;
+    run(&mut config, db).await;
     Ok(())
 }
 
-async fn run<'i>(config: &mut Config) {
-    let index = build_index(&config.websites).await;
+async fn run<'i>(config: &mut Config, db: Arc<ConnPool>) {
+    let index = build_index(&config.websites, db).await;
 
     loop {
         cli_testing(&index);
     }
 }
 
-async fn build_index<'i>(websites: &'i Vec<Website>) -> Index {
+async fn build_index<'i>(websites: &'i Vec<Website>, db: Arc<ConnPool>) -> Index {
     lazy_static! {
         static ref CLIENT: reqwest::Client = reqwest::Client::builder()
             .connect_timeout(time::Duration::from_millis(2048))
             .timeout(time::Duration::from_millis(2048))
-            .user_agent("folklore.dev\tI'm human, if a bit Rusty. POC: Jordan McQueen <j@jm.dev>")
+            .user_agent("folklore.dev\tI'm human, if a bit Rusty.\tJordan McQueen <j@jm.dev>")
             .build()
             .unwrap();
     }
@@ -215,9 +225,12 @@ async fn build_index<'i>(websites: &'i Vec<Website>) -> Index {
     };
 
     for website in websites {
-        for (texts, id) in crawl(&CLIENT, &website.url).await {
+        for (texts, id) in crawl(db.clone(), &CLIENT, &website.url).await {
             match texts {
-                Some(texts) => index.index_texts(id, texts),
+                Some(texts) => {
+                    database::save_texts(db.clone(), &id, &texts).unwrap();
+                    index.index_texts(id, texts);
+                }
                 None => (),
             };
         }
@@ -238,6 +251,7 @@ fn cli_testing(index: &Index) {
 }
 
 async fn crawl(
+    db: Arc<ConnPool>,
     client: &'static reqwest::Client,
     url: &str,
 ) -> Vec<(Option<HashSet<Vec<String>>>, String)> {
@@ -251,15 +265,23 @@ async fn crawl(
 
     let mut handles: Vec<task::JoinHandle<(Option<HashSet<Vec<String>>>, String)>> = vec![];
     for url in urls.into_iter().filter(|l| link_looks_interesting(l)) {
+        let conn = db.clone();
         handles.push(task::spawn(async move {
-            (
-                extract_texts(fetch(client, &url.to_string(), 0).await.as_ref()),
-                url.to_string(),
-            )
+            match database::read_texts(conn, &url.to_string()) {
+                Some(texts) => {
+                    println!("Cache hit! {:#?}", url);
+                    (Some(texts), url.to_string())
+                }
+                None => {
+                    // Let's be nice to our friends' servers.
+                    thread::sleep(time::Duration::from_millis(64));
+                    (
+                        extract_texts(fetch(client, &url.to_string(), 0).await.as_ref()),
+                        url.to_string(),
+                    )
+                }
+            }
         }));
-
-        // Let's be nice to our friends' servers.
-        thread::sleep(time::Duration::from_millis(64));
     }
 
     for handle in handles {

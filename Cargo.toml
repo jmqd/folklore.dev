@@ -19,3 +19,8 @@ serde = { version = "1.0", features = ["derive"] }
 rayon = "1.1"
 url = "2"
 bimap = "0"
+rusqlite = {version = "0", features = ["blob"]}
+gflags = "0.3"
+bincode = "1"
+r2d2_sqlite = "0.17"
+r2d2 = "0.8.9"
