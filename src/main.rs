@@ -266,20 +266,24 @@ async fn crawl(
     let mut handles: Vec<task::JoinHandle<(Option<HashSet<Vec<String>>>, String)>> = vec![];
     for url in urls.into_iter().filter(|l| link_looks_interesting(l)) {
         let conn = db.clone();
+        let cached_texts = database::read_texts(conn.clone(), &url.to_string());
+
+        // Let's be nice to our friends' servers. If we need to go over the network
+        // to get the document contents (i.e. cache miss), let's take a breather first.
+        if cached_texts.is_none() {
+            thread::sleep(time::Duration::from_millis(64));
+        }
+
         handles.push(task::spawn(async move {
-            match database::read_texts(conn.clone(), &url.to_string()) {
+            match cached_texts {
                 Some(texts) => {
                     println!("Cache hit! {:#?}", url);
                     (Some(texts), url.to_string())
                 }
-                None => {
-                    // Let's be nice to our friends' servers.
-                    thread::sleep(time::Duration::from_millis(64));
-                    (
-                        extract_texts(fetch(conn, client, &url.to_string(), 0).await.as_ref()),
-                        url.to_string(),
-                    )
-                }
+                None => (
+                    extract_texts(fetch(conn, client, &url.to_string(), 0).await.as_ref()),
+                    url.to_string(),
+                ),
             }
         }));
     }
@@ -361,7 +365,7 @@ async fn fetch(
         Err(e) => {
             println!("Error when getting site: {:#?}", e);
             while attempt < 4 {
-                thread::sleep(time::Duration::from_millis(attempt * 512));
+                thread::sleep(time::Duration::from_millis(attempt * 1024));
                 let doc = match client.get(url).send().await {
                     Ok(resp) => {
                         let body = resp.text().await.unwrap();
