@@ -318,8 +318,10 @@ async fn crawl(
 fn link_looks_interesting(link: &reqwest::Url) -> bool {
     let s = link.to_string();
     lazy_static! {
-        static ref DISALLOWED_ENDINGS: Vec<&'static str> =
-            vec![".pdf", ".png", ".jpg", ".jpeg", ".gif", ".xml", ".rss", ".css", ".js", ".mov"];
+        static ref DISALLOWED_ENDINGS: Vec<&'static str> = vec![
+            ".pdf", ".png", ".jpg", ".jpeg", ".gif", ".xml", ".rss", ".css", ".js", ".mov", ".svg",
+            ".PDF", ".PNG", ".JPG", ".JPEG", ".GIF", ".XML", ".RSS", ".CSS", ".JS", ".MOV", ".SVG",
+        ];
     }
 
     DISALLOWED_ENDINGS.iter().all(|ending| !s.ends_with(ending))
