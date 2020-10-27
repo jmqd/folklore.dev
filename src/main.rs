@@ -224,12 +224,29 @@ async fn build_index<'i>(websites: &'i Vec<Website>, db: Arc<ConnPool>) -> Index
         word_codes: BiMap::new(),
     };
 
-    for website in websites {
-        for (texts, id) in crawl(db.clone(), &CLIENT, &website.url).await {
+    let mut crawl_stack: Vec<reqwest::Url> = websites
+        .iter()
+        .map(|w| Url::parse(&w.url).unwrap())
+        .collect();
+    let mut visited: HashSet<reqwest::Url> = HashSet::new();
+
+    while crawl_stack.len() > 0 {
+        let url = crawl_stack.pop().unwrap();
+        for (texts, id) in crawl(db.clone(), &CLIENT, url.clone(), &visited).await {
             match texts {
                 Some(texts) => {
-                    database::save_texts(db.clone(), &id, &texts).unwrap();
-                    index.index_texts(id, texts);
+                    let mut visited_url = Url::parse(&id).unwrap();
+                    visited_url.set_query(None);
+                    visited_url.set_fragment(None);
+                    if visited.insert(visited_url.clone()) {
+                        database::save_texts(db.clone(), &id, &texts).unwrap();
+
+                        // Guard against traversing to other origins.
+                        if visited_url.origin() == url.origin() {
+                            crawl_stack.push(visited_url);
+                            index.index_texts(id, texts);
+                        }
+                    }
                 }
                 None => (),
             };
@@ -253,18 +270,22 @@ fn cli_testing(index: &Index) {
 async fn crawl(
     db: Arc<ConnPool>,
     client: &'static reqwest::Client,
-    url: &str,
+    root: reqwest::Url,
+    visited: &HashSet<reqwest::Url>,
 ) -> Vec<(Option<HashSet<Vec<String>>>, String)> {
     let mut documents = Vec::new();
-    let root = Url::parse(url).unwrap();
-    let root_document = fetch(db.clone(), client, url, 0).await;
+    let url = root.to_string();
+    let root_document = fetch(db.clone(), client, &url, 0).await;
     documents.push((extract_texts(root_document.as_ref()), url.to_string()));
     let urls = root_document
-        .map(|d| extract_links_same_host(root, &d))
+        .map(|d| extract_links_same_domain(root, &d))
         .unwrap();
 
     let mut handles: Vec<task::JoinHandle<(Option<HashSet<Vec<String>>>, String)>> = vec![];
-    for url in urls.into_iter().filter(|l| link_looks_interesting(l)) {
+    for url in urls
+        .into_iter()
+        .filter(|l| link_looks_interesting(l) && !visited.contains(l))
+    {
         let conn = db.clone();
         let cached_texts = database::read_texts(conn.clone(), &url.to_string());
 
@@ -305,7 +326,7 @@ fn link_looks_interesting(link: &reqwest::Url) -> bool {
     DISALLOWED_ENDINGS.iter().all(|ending| !s.ends_with(ending))
 }
 
-fn extract_links_same_host(domain: Url, document: &Document) -> Vec<Url> {
+fn extract_links_same_domain(domain: Url, document: &Document) -> Vec<Url> {
     let mut urls: Vec<Url> = vec![];
     document.find(Name("a")).for_each(|node| {
         let link = match node.attr("href") {
@@ -314,8 +335,10 @@ fn extract_links_same_host(domain: Url, document: &Document) -> Vec<Url> {
         };
 
         let link = match link {
-            Some(Ok(link)) => {
-                if link.host() == domain.host() {
+            Some(Ok(mut link)) => {
+                if link.origin() == domain.origin() && link.path() != domain.path() {
+                    link.set_query(None);
+                    link.set_fragment(None);
                     Some(link)
                 } else {
                     None
@@ -324,7 +347,11 @@ fn extract_links_same_host(domain: Url, document: &Document) -> Vec<Url> {
             Some(Err(e)) => match e {
                 ParseError::RelativeUrlWithoutBase => {
                     match domain.join(node.attr("href").unwrap()) {
-                        Ok(link) => Some(link),
+                        Ok(mut link) => {
+                            link.set_query(None);
+                            link.set_fragment(None);
+                            Some(link)
+                        }
                         Err(e) => {
                             println!("Error when trying to fix link: {:#?}", e);
                             None
