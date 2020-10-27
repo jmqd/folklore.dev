@@ -104,11 +104,6 @@ impl Index {
                 self.insert_ngram(bigram_vec, document_code);
             }
         }
-
-        println!("indexed sites length: {:#?}", self.document_codes.len());
-        println!("unigram index length: {:#?}", self.unigrams.len());
-        println!("ngram index length: {:#?}", self.ngrams.len());
-        println!("word_codes length: {:#?}", self.word_codes.len());
     }
 
     fn insert_unigram(&mut self, unigram: String, document_code: usize) {
@@ -201,6 +196,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 async fn run<'i>(config: &mut Config, db: Arc<ConnPool>) {
     let index = build_index(&config.websites, db).await;
+    println!("indexed sites length: {:#?}", index.document_codes.len());
+    println!("unigram index length: {:#?}", index.unigrams.len());
+    println!("ngram index length: {:#?}", index.ngrams.len());
+    println!("word_codes length: {:#?}", index.word_codes.len());
 
     loop {
         cli_testing(&index);
