@@ -235,6 +235,7 @@ async fn build_index<'i>(websites: &'i Vec<Website>, db: Arc<ConnPool>) -> Index
             match texts {
                 Some(texts) => {
                     let mut visited_url = Url::parse(&id).unwrap();
+                    database::save_texts(db.clone(), &id, &texts).unwrap();
                     visited_url.set_query(None);
                     visited_url.set_fragment(None);
                     if visited.insert(visited_url.clone()) {
@@ -433,6 +434,7 @@ fn extract_texts(document: Option<&Document>) -> Option<HashSet<Vec<String>>> {
             texts.insert(ngram);
         }
     }
+
     Some(texts)
 }
 
