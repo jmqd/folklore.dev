@@ -376,7 +376,7 @@ async fn fetch(
     db: Arc<ConnPool>,
     client: &reqwest::Client,
     url: &str,
-    attempt: u64,
+    mut attempt: u64,
 ) -> Option<Document> {
     if let Some(document) = database::read_document(db.clone(), url) {
         return Some(document);
@@ -391,7 +391,8 @@ async fn fetch(
         Err(e) => {
             println!("Error when getting site: {:#?}", e);
             while attempt < 4 {
-                thread::sleep(time::Duration::from_millis(++attempt * 512));
+                attempt += 1;
+                thread::sleep(time::Duration::from_millis(attempt * 512));
                 let doc = match client.get(url).send().await {
                     Ok(resp) => {
                         let body = resp.text().await.unwrap();
