@@ -386,9 +386,12 @@ async fn fetch(
 
     match client.get(url).send().await {
         Ok(resp) => {
-            let body = resp.text().await.unwrap();
-            database::save_document(db, url, &body).expect("Failed to write document to db.");
-            resp_to_document(body).await
+            if let Ok(body) = resp.text().await {
+                database::save_document(db, url, &body).expect("Failed to write document to db.");
+                resp_to_document(body).await
+            } else {
+                None
+            }
         }
         Err(e) => {
             println!("Error when getting site: {:#?}", e);
