@@ -13,7 +13,7 @@ type ConnPool = r2d2::Pool<SqliteConnectionManager>;
 
 gflags::define! {
     /// The path to the sqlite database.
-    --database-path <DATABASE_PATH> = "/tmp/folklore.sqlite3"
+    --database-path <DATABASE_PATH> = "~/src/folklore/folklore.sqlite3"
 }
 
 pub fn connect_to_db() -> Arc<r2d2::Pool<SqliteConnectionManager>> {
