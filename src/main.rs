@@ -210,7 +210,7 @@ async fn build_index<'i>(websites: &'i Vec<Website>, db: Arc<ConnPool>) -> Index
     lazy_static! {
         static ref CLIENT: reqwest::Client = reqwest::Client::builder()
             .connect_timeout(time::Duration::from_millis(2048))
-            .timeout(time::Duration::from_millis(2048))
+            .timeout(time::Duration::from_secs(64))
             .user_agent("folklore.dev\tI'm human, if a bit Rusty.\tJordan McQueen <j@jm.dev>")
             .build()
             .unwrap();
