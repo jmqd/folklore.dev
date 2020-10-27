@@ -6,6 +6,7 @@ use select::document::Document;
 use select::predicate::Name;
 use std::collections::HashSet;
 use std::sync::Arc;
+use std::sync::Mutex;
 use std::{thread, time};
 use tokio::task;
 use url::{ParseError, Url};
@@ -14,7 +15,7 @@ pub async fn crawl(
     db: Arc<ConnPool>,
     client: &'static reqwest::Client,
     root: reqwest::Url,
-    visited: &HashSet<reqwest::Url>,
+    visited: Arc<Mutex<HashSet<reqwest::Url>>>,
 ) -> Vec<(Option<HashSet<Vec<String>>>, String)> {
     let mut documents = Vec::new();
     let url = root.to_string();
@@ -30,7 +31,7 @@ pub async fn crawl(
     let mut handles: Vec<task::JoinHandle<(Option<HashSet<Vec<String>>>, String)>> = vec![];
     for url in urls
         .into_iter()
-        .filter(|l| link_looks_interesting(l) && !visited.contains(l))
+        .filter(|l| link_looks_interesting(l) && !visited.lock().unwrap().contains(l))
     {
         let conn = db.clone();
         let cached_texts = database::read_texts(conn.clone(), &url.to_string());

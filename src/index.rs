@@ -1,12 +1,17 @@
+#[macro_use]
+use tokio;
+
 use crate::database;
 use crate::net;
 use crate::{ConnPool, Website};
 use bimap::BiMap;
+use futures::future;
 use itertools::Itertools;
 use std::collections::HashMap;
 use std::collections::HashSet;
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 use std::time;
+use tokio::task;
 use url::Url;
 
 /// An Index holds all state necessary to answer search queries.
@@ -155,7 +160,7 @@ impl Index {
     }
 }
 
-pub async fn build_index<'i>(websites: &'i Vec<Website>, db: Arc<ConnPool>) -> Index {
+pub async fn build_index<'i>(websites: &'i Vec<Website>, db: Arc<ConnPool>) -> Arc<Mutex<Index>> {
     lazy_static! {
         static ref CLIENT: reqwest::Client = reqwest::Client::builder()
             .connect_timeout(time::Duration::from_millis(2048))
@@ -165,41 +170,79 @@ pub async fn build_index<'i>(websites: &'i Vec<Website>, db: Arc<ConnPool>) -> I
             .unwrap();
     }
 
-    let mut index = Index {
+    let index = Arc::new(Mutex::new(Index {
         unigrams: HashMap::new(),
         ngrams: HashMap::new(),
         document_codes: BiMap::new(),
         word_codes: BiMap::new(),
-    };
+    }));
 
-    let mut crawl_stack: Vec<reqwest::Url> = websites
-        .iter()
-        .map(|w| Url::parse(&w.url).unwrap())
-        .collect();
-    let mut visited: HashSet<reqwest::Url> = HashSet::new();
+    let visited = Arc::new(Mutex::new(HashSet::new()));
+    let crawl_stack: Arc<Mutex<Vec<(reqwest::Url, Arc<Mutex<HashSet<reqwest::Url>>>)>>> =
+        Arc::new(Mutex::new(
+            websites
+                .iter()
+                .map(|w| (Url::parse(&w.url).unwrap(), visited.clone()))
+                .collect(),
+        ));
+    let mut handles: Vec<task::JoinHandle<()>> = vec![];
 
-    while crawl_stack.len() > 0 {
-        let url = crawl_stack.pop().unwrap();
-        for (texts, id) in net::crawl(db.clone(), &CLIENT, url.clone(), &visited).await {
+    loop {
+        let mut crawl_guard = crawl_stack.lock().unwrap();
+        let crawl_envelope = crawl_guard.pop();
+        std::mem::drop(crawl_guard);
+        if crawl_envelope.is_none() {
+            break;
+        }
+
+        let crawl_envelope = crawl_envelope.unwrap();
+
+        for (texts, id) in net::crawl(
+            db.clone(),
+            &CLIENT,
+            crawl_envelope.0.clone(),
+            visited.clone(),
+        )
+        .await
+        {
+            let crawl_stack_ptr = crawl_stack.clone();
+            let url = crawl_envelope.0.clone();
+            let visited_ptr = crawl_envelope.1.clone();
+            let index_ptr = index.clone();
+            let db_cloned = db.clone();
+            println!("Crawl stack loop: {:#?}", url);
             match texts {
                 Some(texts) => {
-                    let mut visited_url = Url::parse(&id).unwrap();
-                    database::save_texts(db.clone(), &id, &texts).unwrap();
-                    visited_url.set_query(None);
-                    visited_url.set_fragment(None);
-                    if visited.insert(visited_url.clone()) {
-                        database::save_texts(db.clone(), &id, &texts).unwrap();
+                    handles.push(task::spawn(async move {
+                        let mut visited_url = Url::parse(&id).unwrap();
+                        database::save_texts(db_cloned.clone(), &id, &texts).unwrap();
+                        visited_url.set_query(None);
+                        visited_url.set_fragment(None);
+                        if visited_ptr.lock().unwrap().insert(visited_url.clone()) {
+                            println!("Saving texts.");
+                            database::save_texts(db_cloned, &id, &texts).unwrap();
 
-                        // Guard against traversing to other origins.
-                        if visited_url.origin() == url.origin() {
-                            crawl_stack.push(visited_url);
-                            index.index_texts(id, texts);
+                            // Guard against traversing to other origins.
+                            if visited_url.origin() == url.origin() {
+                                println!("Attempting to push to stack.");
+                                crawl_stack_ptr
+                                    .lock()
+                                    .unwrap()
+                                    .push((visited_url, visited_ptr.clone()));
+                                println!("Pushed to stack.");
+                                println!("Attempting to write to index.");
+                                index_ptr.lock().unwrap().index_texts(id, texts);
+                                println!("Wrote to index.");
+                            }
                         }
-                    }
+                    }));
                 }
                 None => (),
             };
         }
     }
+
+    future::join_all(handles);
+
     index
 }
