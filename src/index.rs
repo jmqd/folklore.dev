@@ -1,6 +1,3 @@
-#[macro_use]
-use tokio;
-
 use crate::database;
 use crate::net;
 use crate::{ConnPool, Website};
@@ -215,12 +212,13 @@ pub async fn build_index<'i>(websites: &'i Vec<Website>, db: Arc<ConnPool>) -> A
                 Some(texts) => {
                     handles.push(task::spawn(async move {
                         let mut visited_url = Url::parse(&id).unwrap();
-                        database::save_texts(db_cloned.clone(), &id, &texts).unwrap();
                         visited_url.set_query(None);
                         visited_url.set_fragment(None);
                         if visited_ptr.lock().unwrap().insert(visited_url.clone()) {
                             println!("Saving texts.");
-                            database::save_texts(db_cloned, &id, &texts).unwrap();
+                            tokio::task::block_in_place(|| {
+                                database::save_texts(db_cloned, &id, &texts).unwrap();
+                            });
 
                             // Guard against traversing to other origins.
                             if visited_url.origin() == url.origin() {
@@ -242,7 +240,7 @@ pub async fn build_index<'i>(websites: &'i Vec<Website>, db: Arc<ConnPool>) -> A
         }
     }
 
-    future::join_all(handles);
+    future::join_all(handles).await;
 
     index
 }
