@@ -7,8 +7,8 @@ use select::predicate::Name;
 use std::collections::HashSet;
 use std::sync::Arc;
 use std::sync::Mutex;
-use std::{thread, time};
 use tokio::task;
+use tokio::time;
 use url::{ParseError, Url};
 
 pub async fn crawl(
@@ -34,12 +34,13 @@ pub async fn crawl(
         .filter(|l| link_looks_interesting(l) && !visited.lock().unwrap().contains(l))
     {
         let conn = db.clone();
-        let cached_texts = database::read_texts(conn.clone(), &url.to_string());
+        let cached_texts =
+            tokio::task::block_in_place(|| database::read_texts(conn.clone(), &url.to_string()));
 
         // Let's be nice to our friends' servers. If we need to go over the network
         // to get the document contents (i.e. cache miss), let's take a breather first.
         if cached_texts.is_none() {
-            thread::sleep(time::Duration::from_millis(64));
+            time::delay_for(time::Duration::from_millis(64)).await;
         }
 
         handles.push(task::spawn(async move {
@@ -48,12 +49,19 @@ pub async fn crawl(
                     println!("Cache hit! {:#?}", url);
                     (Some(texts), url.to_string())
                 }
-                None => (
-                    document::extract_texts(
-                        fetch(conn, client, &url.to_string(), 0).await.as_ref(),
-                    ),
-                    url.to_string(),
-                ),
+                None => {
+                    let extracted_text = document::extract_texts(
+                        fetch(conn.clone(), client, &url.to_string(), 0).await.as_ref(),
+                    );
+
+                    if extracted_text.is_some() {
+                        tokio::task::block_in_place(|| {
+                            database::save_texts(conn, &url.to_string(), &extracted_text.clone().unwrap());
+                        });
+                    }
+
+                    (extracted_text, url.to_string())
+                }
             }
         }));
     }
@@ -130,14 +138,17 @@ pub async fn fetch(
     url: &str,
     mut attempt: u64,
 ) -> Option<Document> {
-    if let Some(document) = database::read_document(db.clone(), url) {
+    if let Some(document) = tokio::task::block_in_place(|| database::read_document(db.clone(), url))
+    {
         return Some(document);
     }
 
     match client.get(url).send().await {
         Ok(resp) => {
             if let Ok(body) = resp.text().await {
-                database::save_document(db, url, &body).expect("Failed to write document to db.");
+                tokio::task::block_in_place(|| {
+                    database::save_document(db, url, &body);
+                });
                 document::resp_to_document(body).await
             } else {
                 None
@@ -147,12 +158,14 @@ pub async fn fetch(
             println!("Error when getting site: {:#?}", e);
             while attempt < 4 {
                 attempt += 1;
-                thread::sleep(time::Duration::from_millis(attempt * 512));
+                time::delay_for(time::Duration::from_millis(attempt * 512)).await;
                 let doc = match client.get(url).send().await {
                     Ok(resp) => {
                         let body = resp.text().await.unwrap();
-                        database::save_document(db.clone(), url, &body)
-                            .expect("Failed to write document to db.");
+                        tokio::task::block_in_place(|| {
+                            database::save_document(db.clone(), url, &body)
+                                .expect("Failed to write document to db.");
+                        });
                         document::resp_to_document(body).await
                     }
                     _ => None,
