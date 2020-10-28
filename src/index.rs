@@ -13,6 +13,11 @@ use url::Url;
 
 /// An Index holds all state necessary to answer search queries.
 ///
+/// This index is backed by multiple inverted indexes, one for unigrams, and
+/// another for arbitrary length ngrams. These inverted indexes encode all
+/// tokens (e.g. words) and documents as u32 integers, translating to and from
+/// strings only at the interface boundary. (e.g. at query time.)
+///
 /// The index normalizes all tokens to lowercase. Tokens are identified by
 /// intervening whitespace. Different nodes in HTML documents isolate grams
 /// from each other. For example, a gram cannot span from one paragraph or
@@ -20,8 +25,8 @@ use url::Url;
 ///
 /// In the unigram and ngram index data structures, we don't actually store the
 /// words and URLs there. That would consume much more memory. Instead, we
-/// assign each word and URL a unique u64 number, then map everything in the
-/// indexes to these u64 integers. How to translate between the u64 integer and
+/// assign each word and URL a unique u32 number, then map everything in the
+/// indexes to these u32 integers. How to translate between the u32 integer and
 /// the corresponding value is recorded in the `document_codes` and `word_codes`
 /// members. At query time, we translate everything to numbers, perform the
 /// search, then at the last moment, after finding all the matches, we translate
