@@ -11,12 +11,13 @@ pub struct Query {
 
 pub fn query(query_str: String, index: &Index) -> Option<HashSet<String>> {
     lazy_static! {
-        static ref QUERY_PARSER: Regex = Regex::new("(?:\"(.*)\")?\\s(.+)?").unwrap();
+        static ref QUERY_PARSER: Regex =
+            Regex::new("(?:\"(?P<EXACT>.*)\"\\s*)?(?P<UNIGRAMS>.+)?").unwrap();
     }
 
     let captures = QUERY_PARSER.captures(&query_str).unwrap();
     let query = Query {
-        exact_ngram: match captures.get(1) {
+        exact_ngram: match captures.name("EXACT") {
             None => None,
             Some(exact) => Some(
                 exact
@@ -27,7 +28,7 @@ pub fn query(query_str: String, index: &Index) -> Option<HashSet<String>> {
                     .collect(),
             ),
         },
-        unigrams: match captures.get(2) {
+        unigrams: match captures.name("UNIGRAMS") {
             None => None,
             Some(unigrams) => Some(
                 unigrams
