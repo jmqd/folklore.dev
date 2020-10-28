@@ -51,12 +51,18 @@ pub async fn crawl(
                 }
                 None => {
                     let extracted_text = document::extract_texts(
-                        fetch(conn.clone(), client, &url.to_string(), 0).await.as_ref(),
+                        fetch(conn.clone(), client, &url.to_string(), 0)
+                            .await
+                            .as_ref(),
                     );
 
                     if extracted_text.is_some() {
                         tokio::task::block_in_place(|| {
-                            database::save_texts(conn, &url.to_string(), &extracted_text.clone().unwrap());
+                            database::save_texts(
+                                conn,
+                                &url.to_string(),
+                                &extracted_text.clone().unwrap(),
+                            );
                         });
                     }
 
