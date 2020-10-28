@@ -41,10 +41,22 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 async fn run<'i>(config: &mut Config, db: Arc<ConnPool>) {
     let index = index::build_index(&config.websites, db).await;
-    println!("indexed sites length: {:#?}", index.lock().unwrap().document_codes.len());
-    println!("unigram index length: {:#?}", index.lock().unwrap().unigrams.len());
-    println!("ngram index length: {:#?}", index.lock().unwrap().ngrams.len());
-    println!("word_codes length: {:#?}", index.lock().unwrap().word_codes.len());
+    println!(
+        "indexed sites length: {:#?}",
+        index.lock().unwrap().document_codes.len()
+    );
+    println!(
+        "unigram index length: {:#?}",
+        index.lock().unwrap().unigrams.len()
+    );
+    println!(
+        "ngram index length: {:#?}",
+        index.lock().unwrap().ngrams.len()
+    );
+    println!(
+        "word_codes length: {:#?}",
+        index.lock().unwrap().word_codes.len()
+    );
 
     loop {
         cli_testing(&index.lock().unwrap());
