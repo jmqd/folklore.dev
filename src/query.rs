@@ -16,7 +16,7 @@ pub fn query(query_str: String, index: &Index) -> Option<HashSet<String>> {
     }
 
     let captures = QUERY_PARSER.captures(&query_str).unwrap();
-    let query = Query {
+    let mut query = Query {
         exact_ngram: match captures.name("EXACT") {
             None => None,
             Some(exact) => Some(
@@ -40,6 +40,21 @@ pub fn query(query_str: String, index: &Index) -> Option<HashSet<String>> {
             ),
         },
     };
+
+    // If the user provided an exact match like `"football" manchester`, we want
+    // to treat the quoted part just as if it's another unigram.
+    if query.exact_ngram.is_some() && query.exact_ngram.as_ref().unwrap().len() == 1 {
+        match query.unigrams {
+            Some(ref mut unigrams) => {
+                unigrams.push(query.exact_ngram.unwrap()[0].clone());
+                query.exact_ngram = None;
+            },
+            None => {
+                query.unigrams = Some(vec![query.exact_ngram.unwrap()[0].clone()]);
+                query.exact_ngram = None;
+            }
+        }
+    }
     println!("Parsed query: {:#?}", query);
 
     let mut unigram_result_set = HashSet::new();
