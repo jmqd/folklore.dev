@@ -28,36 +28,36 @@ use url::Url;
 /// the results back to Strings for the user.
 pub struct Index {
     /// A mapping from all words to all documents those words appear in.
-    pub unigrams: HashMap<usize, HashSet<usize>>,
+    pub unigrams: HashMap<u32, HashSet<u32>>,
 
     /// A mapping from all ngrams to all documents those ngrams appear in.
-    pub ngrams: HashMap<Vec<usize>, HashSet<usize>>,
+    pub ngrams: HashMap<Vec<u32>, HashSet<u32>>,
 
     /// A bi-mapping from document_ids (e.g. URL strings) to its integer code.
-    pub document_codes: BiMap<String, usize>,
+    pub document_codes: BiMap<String, u32>,
 
     /// A bi-mapping from words to thier integer code.
-    pub word_codes: BiMap<String, usize>,
+    pub word_codes: BiMap<String, u32>,
 }
 
 impl Index {
-    pub fn get_or_generate_word_code(&mut self, word: String) -> usize {
+    pub fn get_or_generate_word_code(&mut self, word: String) -> u32 {
         match self.word_codes.get_by_left(&word) {
             Some(code) => *code,
             None => {
-                self.word_codes.insert(word, self.word_codes.len());
-                self.word_codes.len() - 1
+                self.word_codes.insert(word, self.word_codes.len() as u32);
+                self.word_codes.len() as u32 - 1u32
             }
         }
     }
 
-    pub fn get_or_generate_document_code(&mut self, document_id: String) -> usize {
+    pub fn get_or_generate_document_code(&mut self, document_id: String) -> u32 {
         match self.document_codes.get_by_left(&document_id) {
             Some(code) => *code,
             None => {
                 self.document_codes
-                    .insert(document_id, self.document_codes.len());
-                self.document_codes.len() - 1
+                    .insert(document_id, self.document_codes.len() as u32);
+                self.document_codes.len() as u32 - 1u32
             }
         }
     }
@@ -78,7 +78,7 @@ impl Index {
         }
     }
 
-    pub fn insert_unigram(&mut self, unigram: String, document_code: usize) {
+    pub fn insert_unigram(&mut self, unigram: String, document_code: u32) {
         let code = self.get_or_generate_word_code(unigram);
 
         if self.unigrams.contains_key(&code) {
@@ -90,11 +90,11 @@ impl Index {
         }
     }
 
-    pub fn insert_ngram(&mut self, ngram: Vec<String>, document_code: usize) {
+    pub fn insert_ngram(&mut self, ngram: Vec<String>, document_code: u32) {
         let ngram_codes = ngram
             .into_iter()
             .map(|w| self.get_or_generate_word_code(w))
-            .collect::<Vec<usize>>();
+            .collect::<Vec<u32>>();
 
         if self.ngrams.contains_key(&ngram_codes) {
             self.ngrams
@@ -119,20 +119,20 @@ impl Index {
         let ngram_codes = ngram
             .into_iter()
             .map(|w| self.word_codes.get_by_left(&w))
-            .collect::<Vec<Option<&usize>>>();
+            .collect::<Vec<Option<&u32>>>();
 
         if ngram_codes.iter().any(|c| c.is_none()) {
             return None;
         }
 
-        let ngram_codes: Vec<usize> = ngram_codes.into_iter().map(|c| *c.unwrap()).collect();
+        let ngram_codes: Vec<u32> = ngram_codes.into_iter().map(|c| *c.unwrap()).collect();
 
         self.pass_page_results(self.ngrams.get(&ngram_codes))
     }
 
     pub fn pass_page_results(
         &self,
-        page_results: Option<&HashSet<usize>>,
+        page_results: Option<&HashSet<u32>>,
     ) -> Option<HashSet<String>> {
         match page_results {
             // If we found some pages that matches the search query:
