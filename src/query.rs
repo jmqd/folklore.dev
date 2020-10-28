@@ -1,5 +1,5 @@
-use regex::Regex;
 use crate::index::Index;
+use regex::Regex;
 use std::collections::HashSet;
 use std::iter::Iterator;
 
@@ -65,14 +65,33 @@ pub fn query(query_str: String, index: &Index) -> Option<HashSet<String>> {
                         .map(|s| s.to_string())
                         .collect();
                 }
-                None => (),
+                None => unigram_result_set.clear(),
             }
         }
     }
 
     let exact_results = match query.exact_ngram.clone() {
         None => None,
-        Some(ngram) => index.exact_ngram_match(ngram),
+        Some(ngram) => {
+            let mut iter = ngram.as_slice().windows(2);
+            let mut ngram_result_set: HashSet<String> =
+                match index.exact_ngram_match(iter.next().unwrap().to_vec()) {
+                    Some(results) => results.into_iter().collect(),
+                    None => HashSet::new(),
+                };
+            for bigram in iter {
+                match index.exact_ngram_match(bigram.to_vec()) {
+                    Some(result) => {
+                        ngram_result_set = ngram_result_set
+                            .intersection(&result)
+                            .map(|s| s.to_string())
+                            .collect();
+                    }
+                    None => ngram_result_set.clear(),
+                }
+            }
+            Some(ngram_result_set)
+        }
     };
 
     match (query.exact_ngram.is_some(), query.unigrams.is_some()) {
