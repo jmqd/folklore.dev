@@ -23,12 +23,11 @@ not just the first.
 
 1. Add selected git repos as sources for indexing.
 2. Wrap this in an HTTP server, then deploy it to https://folklore.dev
-3. Support exact text matches for ngrams greater than trigrams.
-4. Explore real indexing algorithms and data structures, instead of my
+3. Explore real indexing algorithms and data structures, instead of my
    hacked-together stuff. (Patricia tree might be good.)
 
 ## Future roadmap items?
 
 1. Make indexing be an online thing, not just 'statically' at deployment.
-2. Add code sources?
+2. Add code sources? (e.g. git repos)
 3. Support more advanced queries.
