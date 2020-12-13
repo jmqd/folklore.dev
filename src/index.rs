@@ -246,6 +246,18 @@ pub async fn build_index<'i>(websites: &'i Vec<Website>, db: Arc<ConnPool>) -> A
     }
 
     future::join_all(handles).await;
-
+    shrink_index(index.clone());
     index
+}
+
+fn shrink_index(index: Arc<Mutex<Index>>) {
+    println!("Shrinking all indexed document sets.");
+    let mut index_guard = index.lock().unwrap();
+    for indexed_documents in index_guard.ngrams.values_mut() {
+        indexed_documents.shrink_to_fit();
+    }
+
+    for indexed_documents in index_guard.unigrams.values_mut() {
+        indexed_documents.shrink_to_fit();
+    }
 }

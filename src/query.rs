@@ -48,7 +48,7 @@ pub fn query(query_str: String, index: &Index) -> Option<HashSet<String>> {
             Some(ref mut unigrams) => {
                 unigrams.push(query.exact_ngram.unwrap()[0].clone());
                 query.exact_ngram = None;
-            },
+            }
             None => {
                 query.unigrams = Some(vec![query.exact_ngram.unwrap()[0].clone()]);
                 query.exact_ngram = None;
@@ -90,12 +90,12 @@ pub fn query(query_str: String, index: &Index) -> Option<HashSet<String>> {
         Some(ngram) => {
             let mut iter = ngram.as_slice().windows(2);
             let mut ngram_result_set: HashSet<String> =
-                match index.exact_ngram_match(iter.next().unwrap().to_vec()) {
+                match index.ngram_match(iter.next().unwrap().to_vec()) {
                     Some(results) => results.into_iter().collect(),
                     None => HashSet::new(),
                 };
             for bigram in iter {
-                match index.exact_ngram_match(bigram.to_vec()) {
+                match index.ngram_match(bigram.to_vec()) {
                     Some(result) => {
                         ngram_result_set = ngram_result_set
                             .intersection(&result)
