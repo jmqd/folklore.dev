@@ -199,14 +199,7 @@ pub async fn build_index<'i>(websites: &'i Vec<Website>, db: Arc<ConnPool>) -> A
 
         let crawl_envelope = crawl_envelope.unwrap();
 
-        for (texts, id) in net::crawl(
-            db.clone(),
-            &CLIENT,
-            crawl_envelope.0.clone(),
-            visited.clone(),
-        )
-        .await
-        {
+        for (texts, id) in net::crawl(&CLIENT, crawl_envelope.0.clone(), visited.clone()).await {
             let crawl_stack_ptr = crawl_stack.clone();
             let url = crawl_envelope.0.clone();
             let visited_ptr = crawl_envelope.1.clone();

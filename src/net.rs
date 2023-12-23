@@ -12,7 +12,6 @@ use tokio::time;
 use url::{ParseError, Url};
 
 pub async fn crawl(
-    db: Arc<ConnPool>,
     client: &'static reqwest::Client,
     root: reqwest::Url,
     visited: Arc<Mutex<HashSet<reqwest::Url>>>,
@@ -139,7 +138,6 @@ fn extract_links_same_domain(domain: Url, document: &Document) -> Vec<Url> {
 }
 
 pub async fn fetch(
-    db: Arc<ConnPool>,
     client: &reqwest::Client,
     url: &str,
     mut attempt: u64,
