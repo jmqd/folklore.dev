@@ -63,10 +63,6 @@ pub async fn crawl(
             continue;
         }
 
-        // Let's be nice to our friends' servers. If we need to go over the network
-        // to get the document contents (i.e. cache miss), let's take a breather first.
-        time::sleep(time::Duration::from_millis(64)).await;
-
         handles.push(task::spawn(async move {
             let searchable_doc = fetch(client, &root, &url.to_string(), 0).await;
 
@@ -104,12 +100,11 @@ fn link_looks_interesting(link: &reqwest::Url) -> bool {
     lazy_static! {
         static ref DISALLOWED_ENDINGS: Vec<&'static str> = vec![
             ".pdf", ".png", ".jpg", ".jpeg", ".gif", ".xml", ".rss", ".css", ".js", ".mov", ".svg",
-            ".PDF", ".PNG", ".JPG", ".JPEG", ".GIF", ".XML", ".RSS", ".CSS", ".JS", ".MOV", ".SVG",
             ".ps", ".Z", ".zip", ".gz", ".rar"
         ];
     }
 
-    DISALLOWED_ENDINGS.iter().all(|ending| !s.ends_with(ending))
+    DISALLOWED_ENDINGS.iter().all(|ending| !s.to_ascii_lowercase().ends_with(ending))
 }
 
 fn extract_links_same_domain(domain: &Url, document: &Document) -> Vec<Url> {
