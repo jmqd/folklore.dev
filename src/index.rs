@@ -1,6 +1,5 @@
-use crate::database;
 use crate::net;
-use crate::{ConnPool, Website};
+use crate::Website;
 use bimap::BiMap;
 use futures::future;
 use itertools::Itertools;
@@ -163,31 +162,12 @@ impl Index {
 }
 
 pub async fn build_index<'i>(websites: &'i Vec<Website>, db: Arc<ConnPool>) -> Arc<Mutex<Index>> {
-    lazy_static! {
-        static ref CLIENT: reqwest::Client = reqwest::Client::builder()
-            .connect_timeout(time::Duration::from_millis(2048))
-            .timeout(time::Duration::from_secs(64))
-            .user_agent("folklore.dev\tI'm human, if a bit Rusty.\tJordan McQueen <j@jm.dev>")
-            .build()
-            .unwrap();
-    }
-
     let index = Arc::new(Mutex::new(Index {
         unigrams: HashMap::new(),
         ngrams: HashMap::new(),
         document_codes: BiMap::new(),
         word_codes: BiMap::new(),
     }));
-
-    let visited = Arc::new(Mutex::new(HashSet::new()));
-    let crawl_stack: Arc<Mutex<Vec<(reqwest::Url, Arc<Mutex<HashSet<reqwest::Url>>>)>>> =
-        Arc::new(Mutex::new(
-            websites
-                .iter()
-                .map(|w| (Url::parse(&w.url).unwrap(), visited.clone()))
-                .collect(),
-        ));
-    let mut handles: Vec<task::JoinHandle<()>> = vec![];
 
     loop {
         let mut crawl_guard = crawl_stack.lock().unwrap();
@@ -199,47 +179,45 @@ pub async fn build_index<'i>(websites: &'i Vec<Website>, db: Arc<ConnPool>) -> A
 
         let crawl_envelope = crawl_envelope.unwrap();
 
-        for (texts, id) in net::crawl(&CLIENT, crawl_envelope.0.clone(), visited.clone()).await {
+        for document in net::crawl(&CLIENT, crawl_envelope.0.clone(), visited.clone()).await {
             let crawl_stack_ptr = crawl_stack.clone();
             let url = crawl_envelope.0.clone();
             let visited_ptr = crawl_envelope.1.clone();
             let index_ptr = index.clone();
-            let db_cloned = db.clone();
-            println!("Crawl stack loop: {:#?}", url);
-            match texts {
-                Some(texts) => {
-                    handles.push(task::spawn(async move {
-                        let mut visited_url = Url::parse(&id).unwrap();
-                        visited_url.set_query(None);
-                        visited_url.set_fragment(None);
-                        if visited_ptr.lock().unwrap().insert(visited_url.clone()) {
-                            println!("Saving texts.");
-                            tokio::task::block_in_place(|| {
-                                database::save_texts(db_cloned, &id, &texts).unwrap();
-                            });
 
-                            // Guard against traversing to other origins.
-                            if visited_url.origin() == url.origin() {
-                                println!("Attempting to push to stack.");
-                                crawl_stack_ptr
-                                    .lock()
-                                    .unwrap()
-                                    .push((visited_url, visited_ptr.clone()));
-                                println!("Pushed to stack.");
-                                println!("Attempting to write to index.");
-                                index_ptr.lock().unwrap().index_texts(id, texts);
-                                println!("Wrote to index.");
-                            }
-                        }
-                    }));
+            println!("Crawl stack loop: {:#?}", url);
+            handles.push(task::spawn(async move {
+                let mut visited_url = Url::parse(&document.url).unwrap();
+                visited_url.set_query(None);
+                visited_url.set_fragment(None);
+
+                if visited_ptr.lock().unwrap().insert(visited_url.clone()) {
+                    println!("Saving texts.");
+
+                    // TODO: Save text here?
+
+                    // Guard against traversing to other origins.
+                    if visited_url.origin() == url.origin() {
+                        println!("Attempting to push to stack.");
+                        crawl_stack_ptr
+                            .lock()
+                            .unwrap()
+                            .push((visited_url, visited_ptr.clone()));
+                        println!("Pushed to stack.");
+                        println!("Attempting to write to index.");
+
+                        // TODO: Clean up this block.
+                        // No need to index here; we will let quickwit handle this.
+                        // index_ptr.lock().unwrap().index_texts(id, texts);
+
+                        println!("Wrote to index.");
+                    }
                 }
-                None => (),
-            };
+            }));
         }
     }
 
     future::join_all(handles).await;
-    shrink_index(index.clone());
     index
 }
 
