@@ -45,3 +45,255 @@ url = "https://www.dampfkraft.com"
 
 [[websites]]
 url = "https://scattered-thoughts.net"
+
+[[websites]]
+url = "https://bcantrill.dtrace.org"
+
+[[websites]]
+url = "https://caseyhandmer.wordpress.com"
+
+[[websites]]
+url = "https://xeiaso.net"
+
+[[websites]]
+url = "https://twos.dev"
+
+[[websites]]
+url = "https://brooker.co.za/blog"
+
+[[websites]]
+url = "https://matt-rickard.com"
+
+[[websites]]
+url = "https://fasterthanli.me"
+
+[[websites]]
+url = "https://fasterthanli.me"
+
+[[websites]]
+url = "https://eatonphil.com"
+
+[[websites]]
+url = "https://john-millikin.com"
+
+[[websites]]
+url = "https://patrickcollison.com"
+
+[[websites]]
+url = "https://patrickcollison.com"
+
+[[websites]]
+url = "https://sahillavingia.com"
+
+[[websites]]
+url = "http://the-witness.net/news"
+
+[[websites]]
+url = "https://www.aspiringpeasant.com"
+
+[[websites]]
+url = "https://grahamc.com"
+
+[[websites]]
+url = "https://paul-snively.github.io"
+
+[[websites]]
+url = "https://yacinemtb.substack.com"
+
+[[websites]]
+url = "https://fchollet.com"
+
+[[websites]]
+url = "https://engineering.fb.com/"
+
+[[websites]]
+url = "https://engineering.linkedin.com/blog"
+
+[[websites]]
+url = "https://fly.io/blog"
+
+[[websites]]
+url = "https://blog.cloudflare.com"
+
+[[websites]]
+url = "https://lamport.azurewebsites.net/pubs/pubs.html"
+
+[[websites]]
+url = "https://martin.kleppmann.com/archive.html"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/dependency-isolation/"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/cicd-pipeline/"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/minimizing-correlated-failures-in-distributed-systems/?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/reliability-and-constant-work?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/fairness-in-multi-tenant-systems?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/avoiding-overload-in-distributed-systems-by-putting-the-smaller-service-in-control?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/building-dashboards-for-operational-visibility/?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/automating-safe-hands-off-deployments/?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/ensuring-rollback-safety-during-deployments?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/leader-election-in-distributed-systems?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/instrumenting-distributed-systems-for-operational-visibility?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/going-faster-with-continuous-delivery?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/workload-isolation-using-shuffle-sharding?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/avoiding-insurmountable-queue-backlogs?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/caching-challenges-and-strategies?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/static-stability-using-availability-zones?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/challenges-with-distributed-systems?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aws.amazon.com/builders-library/implementing-health-checks?did=ba_card&trk=ba_card"
+
+[[websites]]
+url = "https://aphyr.com/posts"
+
+[[websites]]
+url = "http://dancres.github.io/Pages"
+
+[[websites]]
+url = "https://www.igvita.com/2012/07/19/latency-the-new-web-performance-bottleneck"
+
+[[websites]]
+url = "https://research.google/pubs/the-tail-at-scale"
+
+[[websites]]
+url = "http://christophermeiklejohn.com/distributed/systems/2013/07/12/readings-in-distributed-systems.html"
+
+[[websites]]
+url = "https://shipilev.net"
+
+[[websites]]
+url = "https://huyenchip.com/blog"
+
+[[websites]]
+url = "https://copyconstruct.medium.com"
+
+[[websites]]
+url = "https://mcfunley.com/writing"
+
+[[websites]]
+url = "https://eli.thegreenplace.net/archives/all"
+
+[[websites]]
+url = "https://ericsink.com/index.html"
+
+[[websites]]
+url = "https://fgiesen.wordpress.com"
+
+[[websites]]
+url = "https://fabiensanglard.net"
+
+[[websites]]
+url = "https://bellard.org"
+
+[[websites]]
+url = "https://www.akalin.com"
+
+[[websites]]
+url = "https://rakyll.org"
+
+[[websites]]
+url = "https://blog.regehr.org"
+
+[[websites]]
+url = "https://preshing.com"
+
+[[websites]]
+url = "https://www.snellman.net/blog"
+
+[[websites]]
+url = "https://karla.io"
+
+[[websites]]
+url = "https://kate.io"
+
+[[websites]]
+url = "https://lindzey.github.io/index.html"
+
+[[websites]]
+url = "https://tratt.net/laurie/blog"
+
+[[websites]]
+url = "https://idea.popcount.org"
+
+[[websites]]
+url = "https://tonsky.me"
+
+[[websites]]
+url = "http://psy-lob-saw.blogspot.com"
+
+[[websites]]
+url = "https://www.windytan.com"
+
+[[websites]]
+url = "http://pvk.ca"
+
+[[websites]]
+url = "http://rachelbythebay.com/w"
+
+[[websites]]
+url = "https://blog.pizzabox.computer"
+
+[[websites]]
+url = "http://yosefk.com/blog"
+
+[[websites]]
+url = "https://flownet.com/ron"
+
+[[websites]]
+url = "https://blog.rongarret.info"
+
+[[websites]]
+url = "http://blog.nullspace.io"
+
+[[websites]]
+url = "https://huonw.github.io"
+
+[[websites]]
+url = "https://manybutfinite.com"
+
+[[websites]]
+url = "https://neverworkintheory.org"
+
+[[websites]]
+url = "https://kavyajoshi.me"
