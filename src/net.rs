@@ -49,17 +49,9 @@ pub async fn crawl(
         link_looks_interesting(l) && !visited.lock().expect("unlocking visited").contains(l)
     }) {
         let root = root.clone();
-        // TODO: Implement caching here
-        // if is_cached { continue; }
         let local_fs_path = Path::new(OUTPUT_DIR.flag).join(url_to_filename(url.as_str()));
 
         if let Ok(metadata) = std::fs::metadata(&local_fs_path) {
-            //eprintln!(
-            //"Skipping url={} because file={} exists: {:?}",
-            //url,
-            //local_fs_path.to_string_lossy(),
-            //metadata
-            //);
             continue;
         }
 
