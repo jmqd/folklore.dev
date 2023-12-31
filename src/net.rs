@@ -6,6 +6,7 @@ use select::predicate::Name;
 use serde::{Deserialize, Serialize};
 use serde_json;
 
+use std::time::{SystemTime, UNIX_EPOCH};
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::prelude::*;
@@ -24,6 +25,7 @@ gflags::define! {
 pub struct SearchableDocument {
     pub url: String,
     pub title: String,
+    pub fetched_at_linux_epoch_secs: u64,
     pub searchable_texts: Vec<String>,
     pub links_same_domain: Vec<String>,
 }
@@ -200,6 +202,7 @@ pub async fn parse_document(
 
         Some(SearchableDocument {
             url: url.to_string(),
+            fetched_at_linux_epoch_secs: SystemTime::now().duration_since(UNIX_EPOCH).map(|d| d.as_secs()).unwrap_or(0),
             title: doc.find(Name("title")).next().map(|t| t.as_text().unwrap_or("")).unwrap_or("TODO").to_string(),
             searchable_texts: texts.into_iter().unique().collect(),
             links_same_domain: extract_links_same_domain(root, &doc, allowed_domains)
