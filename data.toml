@@ -114,6 +114,7 @@ url = "https://fly.io/blog"
 
 [[websites]]
 url = "https://blog.cloudflare.com"
+recursively_crawl = false
 
 [[websites]]
 url = "https://lamport.azurewebsites.net/pubs/pubs.html"
