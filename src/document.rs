@@ -6,13 +6,11 @@ pub async fn resp_to_document(resp_body: String) -> Option<Document> {
     Some(Document::from(resp_body.as_ref()))
 }
 
-pub fn extract_texts(document: Option<&Document>) -> Option<Vec<String>> {
-    document.map(|d| {
-        d.find(Text)
-            .into_iter()
-            .filter_map(|n| find_searchable_text(n.text()))
+pub fn extract_texts(document: &Document) -> Vec<String> {
+    document.find(Text)
+        .into_iter()
+        .filter_map(|n| find_searchable_text(n.text()))
             .collect()
-    })
 }
 
 fn find_searchable_text(s: String) -> Option<String> {

@@ -23,6 +23,7 @@ gflags::define! {
 #[derive(Serialize, Deserialize)]
 pub struct SearchableDocument {
     pub url: String,
+    pub title: String,
     pub searchable_texts: Vec<String>,
     pub links_same_domain: Vec<String>,
 }
@@ -194,11 +195,14 @@ pub async fn parse_document(
     allowed_domains: &HashSet<String>
 ) -> Option<SearchableDocument> {
     if let Ok(body) = resp.text().await {
-        let doc = document::resp_to_document(body).await;
-        document::extract_texts(doc.as_ref()).map(|texts| SearchableDocument {
+        let doc = document::resp_to_document(body).await?;
+        let texts = document::extract_texts(&doc);
+
+        Some(SearchableDocument {
             url: url.to_string(),
+            title: doc.find(Name("title")).next().map(|t| t.as_text().unwrap_or("")).unwrap_or("TODO").to_string(),
             searchable_texts: texts.into_iter().unique().collect(),
-            links_same_domain: extract_links_same_domain(root, doc.as_ref().unwrap(), allowed_domains)
+            links_same_domain: extract_links_same_domain(root, &doc, allowed_domains)
                 .into_iter()
                 .map(|u| u.to_string())
                 .collect(),
