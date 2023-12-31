@@ -120,26 +120,22 @@ pub async fn crawl(
 }
 
 pub fn url_to_filename(url: &str) -> String {
-    format!("{}.json", url.replace("://", "_").replace("/", "_"))
+    format!("{}.json", url.replace("://", "_").replace("/", "_")).trim_end_matches("_").to_string()
 }
 
 fn link_looks_interesting(link: &reqwest::Url) -> bool {
-    let s = link.to_string();
     lazy_static! {
         static ref DISALLOWED_ENDINGS: Vec<&'static str> = vec![
-            "pdf", "png", "jpg", "jpeg", "gif", "xml", "rss", "css", "js", "mov", "svg", "ps", "Z",
-            "zip", "gz", "rar", "json", "webp", "mp4", "mp3", "bz2", "tar"
+            ".pdf", ".png", ".jpg", ".jpeg", ".gif", ".xml", ".rss", ".css", ".js", ".mov", ".svg", ".ps", ".z",
+            ".zip", ".gz", ".rar", ".json", ".webp", ".mp4", ".mp3", ".bz2", ".tar" , ".js", ".mod", ".webm", ".iso",
+            ".dsk"
         ];
     }
 
-    if let Some(extension_index) = s.find('.') {
-        let extension = &s[extension_index..];
-        DISALLOWED_ENDINGS
-            .iter()
-            .all(|ending| !extension.to_ascii_lowercase().contains(ending))
-    } else {
-        true
-    }
+    let s = link.to_string().to_ascii_lowercase();
+    DISALLOWED_ENDINGS
+        .iter()
+        .all(|ending| !s.ends_with(ending))
 }
 
 fn extract_links_same_domain(domain: &Url, document: &Document, allowed_domains: &HashSet<String>) -> Vec<Url> {
