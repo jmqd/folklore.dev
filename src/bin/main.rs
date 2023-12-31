@@ -56,10 +56,9 @@ async fn run(config: &mut Config) {
 
     loop {
         let mut crawl_envelope = crawl_stack.lock().unwrap().pop();
-        let visited_ptr = visited.clone();
 
         if crawl_envelope.is_none() {
-            while let Some(doc) = handles.next().await {
+            while let Some(_doc) = handles.next().await {
                 println!("Future completed.")
             }
 
