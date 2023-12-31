@@ -1,15 +1,12 @@
 #[macro_use]
 extern crate lazy_static;
 
-
 use folklore::*;
 
 use futures::stream::FuturesUnordered;
 use futures::StreamExt;
 use gflags;
 use std::collections::HashSet;
-
-use std::io;
 use std::sync::{Arc, Mutex};
 use std::time;
 use tokio::task;
@@ -90,15 +87,4 @@ async fn run(config: &mut Config) {
     }
 
     println!("Finished all the crawling.");
-}
-
-fn cli_testing() {
-    let mut input = String::new();
-    match io::stdin().read_line(&mut input) {
-        Ok(n) => {
-            println!("{} bytes read", n);
-            println!("{}", input);
-        }
-        Err(error) => println!("error: {}", error),
-    }
 }
