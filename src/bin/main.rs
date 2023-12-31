@@ -1,14 +1,14 @@
 #[macro_use]
 extern crate lazy_static;
 
-use folklore::net::SearchableDocument;
+
 use folklore::*;
 
 use futures::stream::FuturesUnordered;
 use futures::StreamExt;
 use gflags;
 use std::collections::HashSet;
-use std::future::Future;
+
 use std::io;
 use std::sync::{Arc, Mutex};
 use std::time;
