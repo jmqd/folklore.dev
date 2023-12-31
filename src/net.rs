@@ -61,16 +61,16 @@ pub async fn crawl(
         let root = root.clone();
         let local_fs_path = Path::new(OUTPUT_DIR.flag).join(url_to_filename(url.as_str()));
 
-        if let Ok(metadata) = std::fs::metadata(&local_fs_path) {
+        if let Ok(_metadata) = std::fs::metadata(&local_fs_path) {
             match serde_json::from_str(&std::fs::read_to_string(&local_fs_path).unwrap()) {
                 Ok(f) => {
                     print!("H");
                     handles.push(task::spawn(async move { return f }));
                     continue;
                 }
-                Err(e) => {
-                    println!("{}", local_fs_path.display());
-                    panic!("failed to demarshal");
+                Err(err) => {
+                    println!("Failed to demarshal {}", local_fs_path.display());
+                    println!("{:?}", err);
                 }
             }
         }
