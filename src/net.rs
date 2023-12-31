@@ -1,4 +1,5 @@
 use crate::document;
+use itertools::Itertools;
 use reqwest;
 use select::document::Document;
 use select::predicate::Name;
@@ -181,9 +182,9 @@ pub async fn parse_document(
 ) -> Option<SearchableDocument> {
     if let Ok(body) = resp.text().await {
         let doc = document::resp_to_document(body).await;
-        document::extract_texts(doc.as_ref()).map(|t| SearchableDocument {
+        document::extract_texts(doc.as_ref()).map(|texts| SearchableDocument {
             url: url.to_string(),
-            searchable_texts: t,
+            searchable_texts: texts.into_iter().unique().collect(),
             links_same_domain: extract_links_same_domain(root, doc.as_ref().unwrap())
                 .into_iter()
                 .map(|u| u.to_string())
