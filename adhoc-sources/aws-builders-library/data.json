@@ -1,0 +1,1777 @@
+{
+    "items": [
+        {
+            "item": {
+                "id": "amazon-redwood#dependency-isolation",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "dependency-isolation",
+                "author": "chrpotr",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "chrpotr",
+                "dateCreated": "2019-11-07T07:55:00+0000",
+                "dateUpdated": "2023-08-23T20:39:46+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: David Yanacek",
+                    "dateText": "December 2022",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Card-thumbnail_Dependancy-Isolation.17d0b9dfed97bb03e8787054c4206509d75cba65.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/Dependency_Isolation_by_DavidYanacek.pdf",
+                    "description": "\u003cp\u003eContaining the impact caused by a failing dependency to affect only the relevant functionality in an application.\u003c/p\u003e\n\n\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/Dependency_Isolation_by_DavidYanacek.pdf\"\u003ePDF\u003c/a\u003e\u003c/p\u003e\n",
+                    "sortDate": "2022-12-01",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/dependency-isolation/",
+                    "learningLevel": "LEVEL 300",
+                    "customSort": "0",
+                    "enableShare": "1",
+                    "publishedDate": "2022-12-01",
+                    "contentType": "Software Delivery \u0026 Operations",
+                    "headline": "Using dependency isolation to contain concurrency overload"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#software-delivery-operations",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "software-delivery-operations",
+                    "description": "Software Delivery and Operations",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-05T22:22:55+0000",
+                    "dateUpdated": "2021-02-18T22:24:20+0000"
+                },
+                {
+                    "id": "amazon-redwood#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#level",
+                    "name": "300",
+                    "description": "\u003cp\u003e300\u003c/p\u003e\r\n",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2019-11-22T06:45:45+0000",
+                    "dateUpdated": "2019-11-22T06:45:45+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#david-yanacek",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "david-yanacek",
+                    "description": "David Yanacek",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-07T17:06:58+0000",
+                    "dateUpdated": "2021-02-18T22:24:11+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-level",
+                    "name": "300",
+                    "description": "\u003cp\u003e300\u003c/p\u003e\r\n",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "stokeand",
+                    "dateCreated": "2019-11-05T22:26:46+0000",
+                    "dateUpdated": "2019-11-05T22:26:46+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-type",
+                    "name": "article",
+                    "description": "\u003cp\u003earticle\u003c/p\u003e\r\n",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "stokeand",
+                    "dateCreated": "2019-10-25T22:50:03+0000",
+                    "dateUpdated": "2019-10-25T22:50:03+0000"
+                },
+                {
+                    "id": "GLOBAL#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 300",
+                    "description": "Level 300",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:15+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#my-cicd-pipeline-is-my-release-captain",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "My CI/CD pipeline is my release captain",
+                "author": "chrpotr",
+                "createdBy": "ninataka",
+                "lastUpdatedBy": "chrpotr",
+                "dateCreated": "2022-11-25T17:43:44+0000",
+                "dateUpdated": "2023-08-23T20:41:01+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: Clare Liguori",
+                    "dateText": "December 2022",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/video-icons/thumbnail_CICD-Pipeline.2ae5217c5c8da074a43d72458a39bdd00e087df2.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/CICD_pipeline_as_release_captain.pdf",
+                    "description": "\u003cp\u003eLearn how Amazon continuously releases changes to production safely using practices such as trunk-based development, immutable deployment artifacts, and proactive rollbacks.\u003c/p\u003e\n\n\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/CICD_pipeline_as_release_captain.pdf\"\u003ePDF\u003c/a\u003e\u003c/p\u003e\n",
+                    "sortDate": "2022-12-01",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/cicd-pipeline/",
+                    "learningLevel": "Level 300",
+                    "customSort": "0",
+                    "enableShare": "1",
+                    "contentType": "Software Delivery and Operations",
+                    "headline": "My CI/CD pipeline is my release captain"
+                }
+            },
+            "tags": [
+                {
+                    "id": "GLOBAL#use-case#ci-cd-tools",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#use-case",
+                    "name": "CI/CD Tools",
+                    "description": "CI/CD Tools",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-06-05T06:37:05+0000",
+                    "dateUpdated": "2022-02-03T03:35:35+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-category#software-delivery-operations",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "software-delivery-operations",
+                    "description": "Software Delivery and Operations",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-05T22:22:55+0000",
+                    "dateUpdated": "2021-02-18T22:24:20+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-type",
+                    "name": "article",
+                    "description": "\u003cp\u003earticle\u003c/p\u003e\r\n",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "stokeand",
+                    "dateCreated": "2019-10-25T22:50:03+0000",
+                    "dateUpdated": "2019-10-25T22:50:03+0000"
+                },
+                {
+                    "id": "GLOBAL#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 300",
+                    "description": "Level 300",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:15+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#clare-liguori",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "clare-liguori",
+                    "description": "Clare Liguori",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2020-06-17T04:36:57+0000",
+                    "dateUpdated": "2021-02-18T22:24:13+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#minimizing-correlated-failures-in-distributed-systems",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "minimizing-correlated-failures-in-distributed-systems",
+                "author": "chrpotr",
+                "createdBy": "jarfaa",
+                "lastUpdatedBy": "chrpotr",
+                "dateCreated": "2022-02-12T00:42:25+0000",
+                "dateUpdated": "2023-08-23T20:41:38+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: Joe Magerramov",
+                    "dateText": "February 2022",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Card-thumbnail_Scale-Inversion.37c2a69294bfded9e5772da26edf72fd9543582e.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/minimizing-correlated-failures-in-distributed-systems.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "\u003cp\u003eContinue operating even if some of those servers fail, while using relatively inexpensive, commodity servers.\u003c/p\u003e\r\n\r\n\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/minimizing-correlated-failures-in-distributed-systems.pdf?did\u003dba_card-body\u0026amp;trk\u003dba_card-body\" rel\u003d\"noopener\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e\u003c/p\u003e\r\n",
+                    "sortDate": "2022-02-11",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/minimizing-correlated-failures-in-distributed-systems/?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 300",
+                    "enableShare": "1",
+                    "publishedDate": "2022-02-11",
+                    "contentType": "Architecture",
+                    "headline": "Minimizing correlated failures in distributed systems"
+                }
+            },
+            "tags": [
+                {
+                    "id": "GLOBAL#flag#new",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#flag",
+                    "name": "New",
+                    "description": "New",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-01-16T17:42:47+0000",
+                    "dateUpdated": "2022-02-03T03:31:19+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-category#architecture",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "Architecture",
+                    "description": "Architecture",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2019-11-05T22:21:58+0000",
+                    "dateUpdated": "2022-02-12T00:42:24+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#joe-magerramov",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "Joe Magerramov",
+                    "description": "Joe Magerramov",
+                    "createdBy": "jarfaa",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2020-10-02T17:28:42+0000",
+                    "dateUpdated": "2022-02-12T00:42:23+0000"
+                },
+                {
+                    "id": "GLOBAL#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 300",
+                    "description": "Level 300",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:15+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#reliability-and-constant-work",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "reliability-and-constant-work",
+                "author": "chrpotr",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "chrpotr",
+                "dateCreated": "2021-02-18T22:24:26+0000",
+                "dateUpdated": "2023-08-23T20:43:17+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: Colm MacCarthaigh",
+                    "dateText": "February 2021",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Thumbnail-O1_Options.205962a0c577d6e5d7d28ccab60e41172c3799fc.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/Reliability-constant-work-and-a-good-cup-of-coffee-Colm-MacCarthaigh.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Simplifying systems to deliver stability by avoiding scaling during times of stress.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/Reliability-constant-work-and-a-good-cup-of-coffee-Colm-MacCarthaigh.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2021-02-18",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/reliability-and-constant-work?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 300",
+                    "customSort": "1",
+                    "enableShare": "1",
+                    "publishedDate": "2021-02-18",
+                    "contentType": "Architecture",
+                    "headline": "Reliability, constant work, and a good cup of coffee"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#architecture",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "Architecture",
+                    "description": "Architecture",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2019-11-05T22:21:58+0000",
+                    "dateUpdated": "2022-02-12T00:42:24+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#colm-maccarthaigh",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "colm-maccarthaigh",
+                    "description": "Colm MacCarthaigh",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-21T08:11:03+0000",
+                    "dateUpdated": "2021-02-18T22:24:11+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 300",
+                    "description": "Level 300",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:15+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#making-retries-safe-with-idempotent-apis",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "making-retries-safe-with-idempotent-apis",
+                "author": "chrpotr",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "chrpotr",
+                "dateCreated": "2021-01-15T19:42:15+0000",
+                "dateUpdated": "2023-08-23T20:42:53+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: Malcolm Featonby",
+                    "dateText": "January 2021",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Thumbnail_Idempotency.b8da5c8c0f467ce2ec6b8c06074be72b04ff1261.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/making-retries-safe-with-idempotent-apis-malcolm-featonby.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Strategies for using idempotent APIs to reduce complexity and manage retries Correspondence\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/making-retries-safe-with-idempotent-apis-malcolm-featonby.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2021-01-15",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 300",
+                    "customSort": "2",
+                    "enableShare": "1",
+                    "publishedDate": "2021-01-15",
+                    "contentType": "Architecture",
+                    "headline": "Making retries safe with idempotent APIs"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-author#malcolm-featonby",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "malcolm-featonby",
+                    "description": "Malcolm Featonby",
+                    "createdBy": "jarfaa",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2021-01-15T19:36:17+0000",
+                    "dateUpdated": "2021-04-22T19:33:22+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-category#architecture",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "Architecture",
+                    "description": "Architecture",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2019-11-05T22:21:58+0000",
+                    "dateUpdated": "2022-02-12T00:42:24+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 300",
+                    "description": "Level 300",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:15+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#fairness-in-multi-tenant-systems",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "fairness-in-multi-tenant-systems",
+                "author": "chrpotr",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "chrpotr",
+                "dateCreated": "2019-11-07T07:40:14+0000",
+                "dateUpdated": "2023-08-23T20:42:26+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: David Yanacek",
+                    "dateText": "November 2020",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Thumbnail-Fairness-in-multitenant-systems.png.eea9730d1c5147b0dfc2437ba23b13dfd31d1002.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/fainess-in-multi-tenant-systems-david-yanacek.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Building fairness into multitenant systems to provide predictable performance and availability\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/fainess-in-multi-tenant-systems-david-yanacek.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2020-11-13",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/fairness-in-multi-tenant-systems?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 400",
+                    "customSort": "3",
+                    "enableShare": "1",
+                    "publishedDate": "2020-11-13",
+                    "contentType": "Architecture",
+                    "headline": "Fairness in multi-tenant systems"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-author#david-yanacek",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "david-yanacek",
+                    "description": "David Yanacek",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-07T17:06:58+0000",
+                    "dateUpdated": "2021-02-18T22:24:11+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-category#architecture",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "Architecture",
+                    "description": "Architecture",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2019-11-05T22:21:58+0000",
+                    "dateUpdated": "2022-02-12T00:42:24+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#400",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 400",
+                    "description": "Level 400",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:29+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#scale-inversion",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "scale-inversion",
+                "author": "sudeepap",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "sudeepap",
+                "dateCreated": "2020-10-06T17:55:26+0000",
+                "dateUpdated": "2021-04-22T19:33:35+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: Joe Magerramov",
+                    "dateText": "October 2020",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Card-thumbnail_Scale-Inversion.37c2a69294bfded9e5772da26edf72fd9543582e.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/Avoiding%20overload%20in%20distributed%20systems%20by%20putting%20the%20smaller%20service%20in%20control-Joe%20Magerramov.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Strategies for avoiding the larger service from overloading the smaller one by putting the smaller service in control of the pace of interactions.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/Avoiding%20overload%20in%20distributed%20systems%20by%20putting%20the%20smaller%20service%20in%20control-Joe%20Magerramov.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2020-10-06",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/avoiding-overload-in-distributed-systems-by-putting-the-smaller-service-in-control?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 300",
+                    "customSort": "4",
+                    "enableShare": "1",
+                    "publishedDate": "2020-10-06",
+                    "contentType": "Architecture",
+                    "headline": "Avoiding overload in distributed systems by putting the smaller service in control"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#architecture",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "Architecture",
+                    "description": "Architecture",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2019-11-05T22:21:58+0000",
+                    "dateUpdated": "2022-02-12T00:42:24+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#joe-magerramov",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "Joe Magerramov",
+                    "description": "Joe Magerramov",
+                    "createdBy": "jarfaa",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2020-10-02T17:28:42+0000",
+                    "dateUpdated": "2022-02-12T00:42:23+0000"
+                },
+                {
+                    "id": "GLOBAL#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 300",
+                    "description": "Level 300",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:15+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#building-dashboards-for-operational-visibility",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "building-dashboards-for-operational-visibility",
+                "author": "sudeepap",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "sudeepap",
+                "dateCreated": "2020-08-06T18:58:19+0000",
+                "dateUpdated": "2021-04-22T19:33:52+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: John O\u0027Shea",
+                    "dateText": "August 2020",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Thumbnail-Building-Dashboards.e8b987e787096f9e6f312e3608364f0d429aebe5.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/building-dashboards-for-operational-visibility-johnoshea.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Building dashboards to monitor, dive deep, audit, and review distributed services and automated systems.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/building-dashboards-for-operational-visibility-johnoshea.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2020-08-06",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/building-dashboards-for-operational-visibility/?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 300",
+                    "customSort": "5",
+                    "enableShare": "1",
+                    "publishedDate": "2020-08-06",
+                    "contentType": "Software Delivery and Operations",
+                    "headline": "Building dashboards for operational visibility"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#software-delivery-operations",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "software-delivery-operations",
+                    "description": "Software Delivery and Operations",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-05T22:22:55+0000",
+                    "dateUpdated": "2021-02-18T22:24:20+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#jon-oshea",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "jon-oshea",
+                    "description": "John O\u0027Shea",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2020-08-06T19:12:07+0000",
+                    "dateUpdated": "2021-02-18T22:24:13+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 300",
+                    "description": "Level 300",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:15+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#automating-safe-hands-off-deployments",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "automating-safe-hands-off-deployments",
+                "author": "jarfaa",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "jarfaa",
+                "dateCreated": "2020-06-18T07:05:43+0000",
+                "dateUpdated": "2021-04-22T19:33:54+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: Clare Liguori",
+                    "dateText": "June 2020",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Card-thumbnail-safe-deployments.18d5424729382367dd42bdca3f4ee15dce7a2c4a.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/automating-safe-hands-off-deployments-clareliguori.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Strategies for continuously deploying to production while balancing safety and speed.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/automating-safe-hands-off-deployments-clareliguori.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2020-06-19",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/automating-safe-hands-off-deployments/?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 300",
+                    "customSort": "6",
+                    "enableShare": "1",
+                    "publishedDate": "2020-06-19",
+                    "contentType": "Software Delivery and Operations",
+                    "headline": "Automating safe, hands-off deployments"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#software-delivery-operations",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "software-delivery-operations",
+                    "description": "Software Delivery and Operations",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-05T22:22:55+0000",
+                    "dateUpdated": "2021-02-18T22:24:20+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 300",
+                    "description": "Level 300",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:15+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#clare-liguori",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "clare-liguori",
+                    "description": "Clare Liguori",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2020-06-17T04:36:57+0000",
+                    "dateUpdated": "2021-02-18T22:24:13+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#upgrading-software-safely",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "upgrading-software-safely",
+                "author": "sudeepap",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "sudeepap",
+                "dateCreated": "2019-11-07T07:29:01+0000",
+                "dateUpdated": "2021-04-22T19:34:26+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: Sandeep Pokkunuri",
+                    "dateText": "December 2019",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Thumbnail-Batch3-Upgrading.8054092a4583cdb0865c6b2429e9cfbdc07cdb76.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/ensuring-rollback-safety-during-deployments.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Upgrading live systems with backwards compatibility, rollback, and state in mind so that changes are non-disruptive to customers.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/ensuring-rollback-safety-during-deployments.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e | \u003ca href\u003d\"https://www.amazon.com/dp/B082LQ8MH3?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003eKindle\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2019-12-05",
+                    "kindleUrl": "https://www.amazon.com/dp/B082LQ8MH3?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/ensuring-rollback-safety-during-deployments?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 400",
+                    "customSort": "8",
+                    "enableShare": "1",
+                    "publishedDate": "2019-12-05",
+                    "contentType": "Software Delivery and Operations",
+                    "headline": "Ensuring rollback safety during deployments"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#software-delivery-operations",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "software-delivery-operations",
+                    "description": "Software Delivery and Operations",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-05T22:22:55+0000",
+                    "dateUpdated": "2021-02-18T22:24:20+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#sandeep-pokkunuri",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "sandeep-pokkunuri",
+                    "description": "Sandeep Pokkunuri",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-21T08:12:57+0000",
+                    "dateUpdated": "2021-02-18T22:24:15+0000"
+                },
+                {
+                    "id": "GLOBAL#level#400",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 400",
+                    "description": "Level 400",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:29+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#leader-election",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "leader-election",
+                "author": "sudeepap",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "sudeepap",
+                "dateCreated": "2019-11-07T07:57:28+0000",
+                "dateUpdated": "2021-04-22T19:34:14+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: Marc Brooker",
+                    "dateText": "December 2019",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Thumbnail-Leadership_Options.e7d144b8a2904a73532c1fff0c07a2199a578b8f.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/leader-election-in-distributed-systems.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Improving efficiency, reducing coordination, and simplifying architectures by using leader election.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/leader-election-in-distributed-systems.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e | \u003ca href\u003d\"https://www.amazon.com/dp/B082M1JRPN?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003eKindle\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2019-12-05",
+                    "kindleUrl": "https://www.amazon.com/dp/B082M1JRPN?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/leader-election-in-distributed-systems?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 300",
+                    "customSort": "15",
+                    "enableShare": "1",
+                    "publishedDate": "2019-12-05",
+                    "contentType": "Architecture",
+                    "headline": "Leader election in distributed systems"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-author#marc-brooker",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "marc-brooker",
+                    "description": "Marc Brooker",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-21T08:09:30+0000",
+                    "dateUpdated": "2021-02-18T22:24:16+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-category#architecture",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "Architecture",
+                    "description": "Architecture",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2019-11-05T22:21:58+0000",
+                    "dateUpdated": "2022-02-12T00:42:24+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 300",
+                    "description": "Level 300",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:15+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#instrumentation-for-operational-visibility",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "instrumentation-for-operational-visibility",
+                "author": "jenbar",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "jenbar",
+                "dateCreated": "2019-11-07T08:08:33+0000",
+                "dateUpdated": "2021-04-22T19:34:05+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: David Yanacek",
+                    "dateText": "December 2019",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Card-thumbnail_Monitoring.0ba9dd3964fb000de06a7ffaa5b7a4cad6090e65.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/instrumenting-distributed-systems-for-operational-visibility.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Gaining operational visibility into production systems, and troubleshoot failures with software instrumentation.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/instrumenting-distributed-systems-for-operational-visibility.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e | \u003ca href\u003d\"https://www.amazon.com/dp/B082LT1GGH?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003eKindle\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2019-12-05",
+                    "kindleUrl": "https://www.amazon.com/dp/B082LT1GGH?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/instrumenting-distributed-systems-for-operational-visibility?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 400",
+                    "customSort": "11",
+                    "enableShare": "1",
+                    "publishedDate": "2019-12-05",
+                    "contentType": "Software Delivery and Operations",
+                    "headline": "Instrumenting distributed systems for operational visibility"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#software-delivery-operations",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "software-delivery-operations",
+                    "description": "Software Delivery and Operations",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-05T22:22:55+0000",
+                    "dateUpdated": "2021-02-18T22:24:20+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#david-yanacek",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "david-yanacek",
+                    "description": "David Yanacek",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-07T17:06:58+0000",
+                    "dateUpdated": "2021-02-18T22:24:11+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#400",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 400",
+                    "description": "Level 400",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:29+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#timeouts-retries-and-backoff-with-jitter",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "timeouts-retries-and-backoff-with-jitter",
+                "author": "jenbar",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "jenbar",
+                "dateCreated": "2019-11-07T07:59:16+0000",
+                "dateUpdated": "2021-04-22T19:34:12+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: Marc Brooker",
+                    "dateText": "December 2019",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Thumbnail-Batch3-Timeouts.3983b5293168379a5032301b1b0dc6ac3705ce30.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/timeouts-retries-and-backoff-with-jitter.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Building resilient systems and dealing with failures by using timeouts, retries, and backoff with jitter.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/timeouts-retries-and-backoff-with-jitter.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e | \u003ca href\u003d\"https://www.amazon.com/dp/B082M1PP3H?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003eKindle\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2019-12-05",
+                    "kindleUrl": "https://www.amazon.com/dp/B082M1PP3H?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 200",
+                    "customSort": "14",
+                    "enableShare": "1",
+                    "publishedDate": "2019-12-05",
+                    "contentType": "Architecture",
+                    "headline": "Timeouts, retries and backoff with jitter"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-author#marc-brooker",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "marc-brooker",
+                    "description": "Marc Brooker",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-21T08:09:30+0000",
+                    "dateUpdated": "2021-02-18T22:24:16+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-category#architecture",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "Architecture",
+                    "description": "Architecture",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2019-11-05T22:21:58+0000",
+                    "dateUpdated": "2022-02-12T00:42:24+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#200",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 200",
+                    "description": "Level 200",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:13+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#going-faster-continous-delivery",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "going-faster-continous-delivery",
+                "author": "jenbar",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "jenbar",
+                "dateCreated": "2019-11-27T23:58:33+0000",
+                "dateUpdated": "2021-04-22T19:33:57+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: Mark Mansour",
+                    "dateText": "December 2019",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Card-thumbnail_Software-deployments.89a23234e262e526ee155d5194c52e3aa605ffff.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/going-faster-with-continuous-delivery.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Automating the software testing and deployment process for speed and reliability.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/going-faster-with-continuous-delivery.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e | \u003ca href\u003d\"https://www.amazon.com/dp/B082LPXV5Y?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003eKindle\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2019-12-05",
+                    "kindleUrl": "https://www.amazon.com/dp/B082LPXV5Y?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/going-faster-with-continuous-delivery?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 300",
+                    "customSort": "7",
+                    "enableShare": "1",
+                    "publishedDate": "2019-12-05",
+                    "contentType": "Software Delivery and Operations",
+                    "headline": "Going faster with continuous delivery"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#software-delivery-operations",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "software-delivery-operations",
+                    "description": "Software Delivery and Operations",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-05T22:22:55+0000",
+                    "dateUpdated": "2021-02-18T22:24:20+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#mark-mansour",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "mark-mansour",
+                    "description": "Mark Mansour",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-28T00:05:36+0000",
+                    "dateUpdated": "2021-02-18T22:24:14+0000"
+                },
+                {
+                    "id": "GLOBAL#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 300",
+                    "description": "Level 300",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:15+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#load-shedding-for-overload-protection",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "load-shedding-for-overload-protection",
+                "author": "jenbar",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "jenbar",
+                "dateCreated": "2019-11-07T08:01:46+0000",
+                "dateUpdated": "2021-04-22T19:34:09+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: David Yanacek",
+                    "dateText": "December 2019",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Thumbnail-Load-Shedding_Options.525f1d489370b87e3e90a65ca4dd7820790fa2a5.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/using-load-shedding-to-avoid-overload.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Strategies for maintaining predictable, consistent performance in the face of overload.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/using-load-shedding-to-avoid-overload.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e | \u003ca href\u003d\"https://www.amazon.com/dp/B082LY7J8F?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003eKindle\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2019-12-05",
+                    "kindleUrl": "https://www.amazon.com/dp/B082LY7J8F?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 400",
+                    "customSort": "19",
+                    "enableShare": "1",
+                    "publishedDate": "2019-12-05",
+                    "contentType": "Software Delivery and Operations",
+                    "headline": "Using load shedding to avoid overload"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#software-delivery-operations",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "software-delivery-operations",
+                    "description": "Software Delivery and Operations",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-05T22:22:55+0000",
+                    "dateUpdated": "2021-02-18T22:24:20+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#david-yanacek",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "david-yanacek",
+                    "description": "David Yanacek",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-07T17:06:58+0000",
+                    "dateUpdated": "2021-02-18T22:24:11+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#400",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 400",
+                    "description": "Level 400",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:29+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#shuffle-sharding",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "shuffle-sharding",
+                "author": "jenbar",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "jenbar",
+                "dateCreated": "2019-11-27T23:58:28+0000",
+                "dateUpdated": "2021-04-22T19:33:59+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: Colm MacCarthaigh",
+                    "dateText": "December 2019",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Thumbnail-ShuffleSharding_Options.ad3ab35dc67829c368506eec79af09bbeb20d898.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/workload-isolation-using-shuffle-sharding.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Shuffle Sharding is one of our core techniques for drastically limiting the scope of impact of operational issues.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/workload-isolation-using-shuffle-sharding.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e | \u003ca href\u003d\"https://www.amazon.com/dp/B082LWFS9V?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003eKindle\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2019-12-05",
+                    "kindleUrl": "https://www.amazon.com/dp/B082LWFS9V?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/workload-isolation-using-shuffle-sharding?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 400",
+                    "customSort": "13",
+                    "enableShare": "1",
+                    "publishedDate": "2019-12-05",
+                    "contentType": "Architecture",
+                    "headline": "Workload isolation using shuffle-sharding"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#architecture",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "Architecture",
+                    "description": "Architecture",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2019-11-05T22:21:58+0000",
+                    "dateUpdated": "2022-02-12T00:42:24+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#colm-maccarthaigh",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "colm-maccarthaigh",
+                    "description": "Colm MacCarthaigh",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-21T08:11:03+0000",
+                    "dateUpdated": "2021-02-18T22:24:11+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#400",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 400",
+                    "description": "Level 400",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:29+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#avoiding-queue-backlogs",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "avoiding-queue-backlogs",
+                "author": "jarfaa",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "jarfaa",
+                "dateCreated": "2019-11-07T07:05:26+0000",
+                "dateUpdated": "2021-04-22T19:34:29+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: David Yanacek",
+                    "dateText": "December 2019",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Card-thumbnail_Queueing.4a0e8c6758937eaade05c72773928c29ff1031a5.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/avoiding-insurmountable-queue-backlogs.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Prioritizing draining important workloads from queue backlogs quickly, and avoid backlogs in the first place.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/avoiding-insurmountable-queue-backlogs.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e | \u003ca href\u003d\"https://www.amazon.com/dp/B082LRC669?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003eKindle\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2019-12-05",
+                    "kindleUrl": "https://www.amazon.com/dp/B082LRC669?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/avoiding-insurmountable-queue-backlogs?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 400",
+                    "customSort": "9",
+                    "enableShare": "1",
+                    "publishedDate": "2019-12-05",
+                    "contentType": "Architecture",
+                    "headline": "Avoiding insurmountable queue backlogs"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-author#david-yanacek",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "david-yanacek",
+                    "description": "David Yanacek",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-07T17:06:58+0000",
+                    "dateUpdated": "2021-02-18T22:24:11+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-category#architecture",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "Architecture",
+                    "description": "Architecture",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2019-11-05T22:21:58+0000",
+                    "dateUpdated": "2022-02-12T00:42:24+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#400",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 400",
+                    "description": "Level 400",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:29+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#caching",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "caching",
+                "author": "jenbar",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "jenbar",
+                "dateCreated": "2019-11-07T07:47:15+0000",
+                "dateUpdated": "2021-04-22T19:34:17+0000",
+                "additionalFields": {
+                    "contentAuthor": "Authors: Matt Brinkley, Jas Chhabra",
+                    "dateText": "December 2019",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Thumbnail-Batch3-Caching.843a1f5f8859a0db3598292d984f7ebb54a54e3d.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/caching-challenges-and-strategies.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Improving latency and availability with caching  while avoiding the modal behavior they can introduce.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/caching-challenges-and-strategies.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e | \u003ca href\u003d\"https://www.amazon.com/dp/B082LQS8ZC?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003eKindle\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2019-12-05",
+                    "kindleUrl": "https://www.amazon.com/dp/B082LQS8ZC?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/caching-challenges-and-strategies?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 300",
+                    "customSort": "16",
+                    "enableShare": "1",
+                    "publishedDate": "2019-12-05",
+                    "contentType": "Architecture",
+                    "headline": "Caching challenges and strategies"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#architecture",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "Architecture",
+                    "description": "Architecture",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2019-11-05T22:21:58+0000",
+                    "dateUpdated": "2022-02-12T00:42:24+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#matt-brinkley",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "matt-brinkley",
+                    "description": "Matt Brinkley",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-21T08:12:39+0000",
+                    "dateUpdated": "2021-02-18T22:24:17+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#jas-chhabra",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "jas-chhabra",
+                    "description": "Jas Chhabra",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-21T08:11:27+0000",
+                    "dateUpdated": "2021-02-18T22:24:16+0000"
+                },
+                {
+                    "id": "GLOBAL#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 300",
+                    "description": "Level 300",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:15+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#static-stability-using-availability-zones",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "static-stability-using-availability-zones",
+                "author": "jenbar",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "jenbar",
+                "dateCreated": "2019-11-07T07:36:48+0000",
+                "dateUpdated": "2021-04-22T19:34:24+0000",
+                "additionalFields": {
+                    "contentAuthor": "Authors: Becky Weiss, Mike Furr",
+                    "dateText": "December 2019",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Thumbnail-Static-Stability_Options.e69afc190898bd15fcad5a36e8184d48811be971.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/static-stability-using-availability-zones.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Architecting to use multiple availability zones for high availability and ensuring systems are statically stable.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/static-stability-using-availability-zones.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e | \u003ca href\u003d\"https://www.amazon.com/dp/B082LRC9HQ?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003eKindle\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2019-12-05",
+                    "kindleUrl": "https://www.amazon.com/dp/B082LRC9HQ?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/static-stability-using-availability-zones?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 300",
+                    "customSort": "18",
+                    "enableShare": "1",
+                    "publishedDate": "2019-12-05",
+                    "contentType": "Architecture",
+                    "headline": "Static stability using availability zones"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#architecture",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "Architecture",
+                    "description": "Architecture",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2019-11-05T22:21:58+0000",
+                    "dateUpdated": "2022-02-12T00:42:24+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#becky-weiss",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "becky-weiss",
+                    "description": "Becky Weiss",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-21T08:10:40+0000",
+                    "dateUpdated": "2021-02-18T22:24:18+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#mike-furr",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "mike-furr",
+                    "description": "Mike Furr",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-21T08:13:33+0000",
+                    "dateUpdated": "2021-02-18T22:24:18+0000"
+                },
+                {
+                    "id": "GLOBAL#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 300",
+                    "description": "Level 300",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:15+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#challenges-with-distributed-systems",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "challenges-with-distributed-systems",
+                "author": "jenbar",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "jenbar",
+                "dateCreated": "2019-11-07T08:03:50+0000",
+                "dateUpdated": "2021-04-22T19:34:07+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: Jacob Gabrielson",
+                    "dateText": "December 2019",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Thumbnail-Challenges_Options.1bc2c1273ea71809994a0ffd021354a210bbbeb2.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/challenges-with-distributed-systems.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Introducing properties of distributed systems that make them so challenging, including non-determinism and testing.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/challenges-with-distributed-systems.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e | \u003ca href\u003d\"https://www.amazon.com/dp/B082LR72VL?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003eKindle\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2019-12-05",
+                    "kindleUrl": "https://www.amazon.com/dp/B082LR72VL?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/challenges-with-distributed-systems?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 200",
+                    "customSort": "12",
+                    "enableShare": "1",
+                    "publishedDate": "2019-12-05",
+                    "contentType": "Architecture",
+                    "headline": "Challenges with distributed systems"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#architecture",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "Architecture",
+                    "description": "Architecture",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2019-11-05T22:21:58+0000",
+                    "dateUpdated": "2022-02-12T00:42:24+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#jacob-gabrielson",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "jacob-gabrielson",
+                    "description": "Jacob Gabrielson",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-21T08:11:56+0000",
+                    "dateUpdated": "2021-02-18T22:24:15+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#200",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 200",
+                    "description": "Level 200",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:13+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#implementing-health-checks",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "implementing-health-checks",
+                "author": "jenbar",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "jenbar",
+                "dateCreated": "2019-11-07T08:14:43+0000",
+                "dateUpdated": "2021-04-22T19:34:02+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: David Yanacek",
+                    "dateText": "December 2019",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Card-thumbnail_Health-Checks.bca3cafc71f7f27d10b04f197956e77a65ec2aab.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/implementing-health-checks.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Automatically detecting and mitigating server failures without unintended consequences from fleet-wide false positives.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/implementing-health-checks.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e | \u003ca href\u003d\"https://www.amazon.com/dp/B082LQ37RJ?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003eKindle\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2019-12-05",
+                    "kindleUrl": "https://www.amazon.com/dp/B082LQ37RJ?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/implementing-health-checks?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 400",
+                    "customSort": "10",
+                    "enableShare": "1",
+                    "publishedDate": "2019-12-05",
+                    "contentType": "Software Delivery and Operations",
+                    "headline": "Implementing health checks"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#software-delivery-operations",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "software-delivery-operations",
+                    "description": "Software Delivery and Operations",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-05T22:22:55+0000",
+                    "dateUpdated": "2021-02-18T22:24:20+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#david-yanacek",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "david-yanacek",
+                    "description": "David Yanacek",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-07T17:06:58+0000",
+                    "dateUpdated": "2021-02-18T22:24:11+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#400",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 400",
+                    "description": "Level 400",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:29+0000"
+                }
+            ]
+        },
+        {
+            "item": {
+                "id": "amazon-redwood#avoiding-fallback",
+                "locale": "en_US",
+                "directoryId": "amazon-redwood",
+                "name": "avoiding-fallback",
+                "author": "jenbar",
+                "createdBy": "sudeepap",
+                "lastUpdatedBy": "jenbar",
+                "dateCreated": "2019-11-07T07:42:15+0000",
+                "dateUpdated": "2021-04-22T19:34:19+0000",
+                "additionalFields": {
+                    "contentAuthor": "Author: Jacob Gabrielson",
+                    "dateText": "December 2019",
+                    "downloadTooltip": "Download PDF",
+                    "imageSrcUrl": "https://d1.awsstatic.com/builderslibrary/icons/WEB_Redwood_Card-thumbnail_Avoiding-fallback.3d9358faacf92b8045953dd15df624724db606ed.png",
+                    "downloadUrl": "https://d1.awsstatic.com/builderslibrary/pdfs/avoiding-fallback-in-distributed-systems.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "description": "Building services that behave predictably during failures by avoiding fallback logic.\u003cp\u003e\u003ca href\u003d\"https://d1.awsstatic.com/builderslibrary/pdfs/avoiding-fallback-in-distributed-systems.pdf?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003ePDF\u003c/a\u003e | \u003ca href\u003d\"https://www.amazon.com/dp/B082K6PXKR?did\u003dba_card-body\u0026trk\u003dba_card-body\" target\u003d\"_blank\"\u003eKindle\u003c/a\u003e\u003c/p\u003e",
+                    "sortDate": "2019-12-05",
+                    "kindleUrl": "https://www.amazon.com/dp/B082K6PXKR?did\u003dba_card-body\u0026trk\u003dba_card-body",
+                    "headlineUrl": "https://aws.amazon.com/builders-library/avoiding-fallback-in-distributed-systems?did\u003dba_card\u0026trk\u003dba_card",
+                    "learningLevel": "Level 300",
+                    "customSort": "17",
+                    "enableShare": "1",
+                    "publishedDate": "2019-12-05",
+                    "contentType": "Architecture",
+                    "headline": "Avoiding fallback in distributed systems"
+                }
+            },
+            "tags": [
+                {
+                    "id": "amazon-redwood#content-category#architecture",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-category",
+                    "name": "Architecture",
+                    "description": "Architecture",
+                    "createdBy": "stokeand",
+                    "lastUpdatedBy": "jarfaa",
+                    "dateCreated": "2019-11-05T22:21:58+0000",
+                    "dateUpdated": "2022-02-12T00:42:24+0000"
+                },
+                {
+                    "id": "amazon-redwood#content-author#jacob-gabrielson",
+                    "locale": "en_US",
+                    "tagNamespaceId": "amazon-redwood#content-author",
+                    "name": "jacob-gabrielson",
+                    "description": "Jacob Gabrielson",
+                    "createdBy": "sudeepap",
+                    "lastUpdatedBy": "sudeepap",
+                    "dateCreated": "2019-11-21T08:11:56+0000",
+                    "dateUpdated": "2021-02-18T22:24:15+0000"
+                },
+                {
+                    "id": "GLOBAL#content-type#article",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#content-type",
+                    "name": "Article",
+                    "description": "Article",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-04-29T05:19:16+0000",
+                    "dateUpdated": "2022-02-03T03:31:06+0000"
+                },
+                {
+                    "id": "GLOBAL#level#300",
+                    "locale": "en_US",
+                    "tagNamespaceId": "GLOBAL#level",
+                    "name": "Level 300",
+                    "description": "Level 300",
+                    "createdBy": "jenbar",
+                    "lastUpdatedBy": "jenbar",
+                    "dateCreated": "2020-02-21T18:26:15+0000",
+                    "dateUpdated": "2022-02-03T03:31:28+0000"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "count": 22,
+        "totalHits": 22
+    },
+    "fieldTypes": {
+        "dateText": "Text",
+        "contentAuthor": "Text",
+        "updateDate": "Date",
+        "imageSrcUrl": "URL",
+        "featureFlag": "Text",
+        "downloadTooltip": "Text",
+        "downloadUrl": "URL",
+        "description": "LongText",
+        "sortDate": "Date",
+        "kindleUrl": "URL",
+        "headlineUrl": "URL",
+        "learningLevel": "Text",
+        "videoUrl": "URL",
+        "customSort": "Number",
+        "publishedDate": "Date",
+        "enableShare": "Boolean",
+        "headline": "Text",
+        "contentType": "Text"
+    }
+}
