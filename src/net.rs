@@ -199,7 +199,7 @@ pub async fn parse_document(
         Some(SearchableDocument {
             url: url.to_string(),
             fetched_at_linux_epoch_secs: SystemTime::now().duration_since(UNIX_EPOCH).map(|d| d.as_secs()).unwrap_or(0),
-            title: doc.find(Name("title")).next().map(|t| t.as_text().unwrap_or("")).unwrap_or("TODO").to_string(),
+            title: doc.find(Name("title")).next().map(|t| t.text()).unwrap_or("TODO".to_string()),
             searchable_texts: texts.into_iter().unique().collect(),
             links_same_domain: extract_links_same_domain(root, &doc, allowed_domains)
                 .into_iter()
