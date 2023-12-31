@@ -6,6 +6,7 @@ use folklore::*;
 use futures::stream::FuturesUnordered;
 use futures::StreamExt;
 use gflags;
+use reqwest::redirect::Policy;
 use std::collections::HashSet;
 use std::sync::{Arc, Mutex};
 use std::time;
@@ -14,29 +15,32 @@ use url::Url;
 
 lazy_static! {
     static ref CLIENT: reqwest::Client = reqwest::Client::builder()
-        .connect_timeout(time::Duration::from_millis(2048))
+        .connect_timeout(time::Duration::from_millis(4096))
         .timeout(time::Duration::from_secs(64))
         .user_agent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36")
+        .redirect(Policy::none())
         .build()
         .unwrap();
+    static ref CONFIG: Config = toml::from_str(std::include_str!("../../data.toml"))
+        .expect("Failed to deserialized config file.");
+
+    static ref ALLOWED_DOMAINS: HashSet<String> = CONFIG.websites.iter().map(|w| Url::parse(&w.url).unwrap().domain().unwrap().to_string()).collect();
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = gflags::parse();
     println!("Binary arguments: {:#?}", args);
-    let mut config: Config = toml::from_str(std::include_str!("../../data.toml"))
-        .expect("Failed to deserialized config file.");
 
-    run(&mut config).await;
+    run().await;
     Ok(())
 }
 
-async fn run(config: &mut Config) {
+async fn run() {
     let visited = Arc::new(Mutex::new(HashSet::new()));
     let crawl_stack: Arc<Mutex<Vec<(reqwest::Url, bool, Arc<Mutex<HashSet<reqwest::Url>>>)>>> =
         Arc::new(Mutex::new(
-            config
+            CONFIG
                 .websites
                 .iter()
                 .map(|w| {
@@ -70,7 +74,7 @@ async fn run(config: &mut Config) {
         let crawl_stack_ptr = crawl_stack.clone();
 
         handles.push(task::spawn(async move {
-            for document in net::crawl(&CLIENT, crawl_envelope.0).await {
+            for document in net::crawl(&CLIENT, crawl_envelope.0, &ALLOWED_DOMAINS).await {
                 let mut visited_url = Url::parse(&document.url).unwrap();
                 visited_url.set_query(None);
                 visited_url.set_fragment(None);
