@@ -1,10 +1,14 @@
 #[macro_use]
 extern crate lazy_static;
 
+use folklore::net::SearchableDocument;
 use folklore::*;
 
+use futures::stream::FuturesUnordered;
+use futures::StreamExt;
 use gflags;
 use std::collections::HashSet;
+use std::future::Future;
 use std::io;
 use std::sync::{Arc, Mutex};
 use std::time;
@@ -33,37 +37,60 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 async fn run(config: &mut Config) {
     let visited = Arc::new(Mutex::new(HashSet::new()));
-    let crawl_stack: Arc<Mutex<Vec<(reqwest::Url, Arc<Mutex<HashSet<reqwest::Url>>>)>>> =
+    let crawl_stack: Arc<Mutex<Vec<(reqwest::Url, bool, Arc<Mutex<HashSet<reqwest::Url>>>)>>> =
         Arc::new(Mutex::new(
             config
                 .websites
                 .iter()
-                .map(|w| (Url::parse(&w.url).unwrap(), visited.clone()))
+                .map(|w| {
+                    (
+                        Url::parse(&w.url).unwrap(),
+                        w.recursively_crawl,
+                        visited.clone(),
+                    )
+                })
                 .collect(),
         ));
-    let mut handles: Vec<task::JoinHandle<()>> = vec![];
+
+    let mut handles = FuturesUnordered::<tokio::task::JoinHandle<()>>::new();
 
     loop {
         let mut crawl_envelope = crawl_stack.lock().unwrap().pop();
         let visited_ptr = visited.clone();
 
         if crawl_envelope.is_none() {
-            break;
+            while let Some(doc) = handles.next().await {
+                println!("Future completed.")
+            }
+
+            if crawl_stack.lock().unwrap().is_empty() {
+                break;
+            } else {
+                crawl_envelope = crawl_stack.lock().unwrap().pop();
+            }
         }
 
         let crawl_envelope = crawl_envelope.unwrap();
 
+        let crawl_stack_ptr = crawl_stack.clone();
+        let visited_ref = visited.clone();
         handles.push(task::spawn(async move {
-            for document in net::crawl(&CLIENT, crawl_envelope.0, visited_ptr.clone()).await {
+            for document in net::crawl(&CLIENT, crawl_envelope.0, crawl_envelope.1).await {
                 let mut visited_url = Url::parse(&document.url).unwrap();
                 visited_url.set_query(None);
                 visited_url.set_fragment(None);
-                visited_ptr.lock().unwrap().insert(visited_url.clone());
+                if crawl_envelope.2.lock().unwrap().insert(visited_url.clone()) {
+                    crawl_stack_ptr
+                        .lock()
+                        .unwrap()
+                        .push((visited_url, true, visited_ref.clone()));
+                }
             }
         }));
+
+        println!("Finished all the crawling. Starting another generation.");
     }
 
-    futures::future::join_all(handles).await;
     println!("Finished all the crawling.");
 }
 

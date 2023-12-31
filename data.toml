@@ -123,66 +123,87 @@ url = "https://martin.kleppmann.com/archive.html"
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/dependency-isolation/"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/cicd-pipeline/"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/minimizing-correlated-failures-in-distributed-systems/?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/reliability-and-constant-work?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/fairness-in-multi-tenant-systems?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/avoiding-overload-in-distributed-systems-by-putting-the-smaller-service-in-control?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/building-dashboards-for-operational-visibility/?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/automating-safe-hands-off-deployments/?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/ensuring-rollback-safety-during-deployments?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/leader-election-in-distributed-systems?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/instrumenting-distributed-systems-for-operational-visibility?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/going-faster-with-continuous-delivery?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/workload-isolation-using-shuffle-sharding?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/avoiding-insurmountable-queue-backlogs?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/caching-challenges-and-strategies?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/static-stability-using-availability-zones?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/challenges-with-distributed-systems?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aws.amazon.com/builders-library/implementing-health-checks?did=ba_card&trk=ba_card"
+recursively_crawl = false
 
 [[websites]]
 url = "https://aphyr.com/posts"
@@ -297,3 +318,12 @@ url = "https://neverworkintheory.org"
 
 [[websites]]
 url = "https://kavyajoshi.me"
+
+[[websites]]
+url = "https://blog.lambdaclass.com/austral"
+
+[[websites]]
+url = "https://borretti.me"
+
+[[websites]]
+url = "https://rust-lang.github.io/rfcs"
