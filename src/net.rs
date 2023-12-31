@@ -33,6 +33,12 @@ pub async fn crawl(
     let mut documents = Vec::new();
     let url = root.to_string();
     let root_document = fetch(client, &root, &url, 0).await;
+
+    if root_document.is_none() {
+        eprintln!("Failed to get root_document.");
+        return vec![]
+    }
+
     let urls: Vec<Url> = root_document
         .as_ref()
         .expect("Failed to unwrap root_document")
