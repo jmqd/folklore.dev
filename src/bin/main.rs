@@ -70,15 +70,17 @@ async fn run(config: &mut Config) {
         let crawl_stack_ptr = crawl_stack.clone();
 
         handles.push(task::spawn(async move {
-            for document in net::crawl(&CLIENT, crawl_envelope.0, crawl_envelope.1).await {
+            for document in net::crawl(&CLIENT, crawl_envelope.0).await {
                 let mut visited_url = Url::parse(&document.url).unwrap();
                 visited_url.set_query(None);
                 visited_url.set_fragment(None);
-                if crawl_envelope.2.lock().unwrap().insert(visited_url.clone()) {
-                    crawl_stack_ptr.clone()
-                        .lock()
-                        .unwrap()
-                        .push((visited_url, true, crawl_envelope.2.clone()));
+                if crawl_envelope.2.lock().unwrap().insert(visited_url.clone()) && crawl_envelope.1
+                {
+                    crawl_stack_ptr.clone().lock().unwrap().push((
+                        visited_url,
+                        true,
+                        crawl_envelope.2.clone(),
+                    ));
                 }
             }
         }));

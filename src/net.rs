@@ -4,12 +4,11 @@ use select::document::Document;
 use select::predicate::Name;
 use serde::{Deserialize, Serialize};
 use serde_json;
-use std::collections::HashSet;
+
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
-use std::sync::Arc;
-use std::sync::Mutex;
+
 use tokio::task;
 use tokio::time;
 use url::{ParseError, Url};
@@ -29,7 +28,6 @@ pub struct SearchableDocument {
 pub async fn crawl(
     client: &'static reqwest::Client,
     root: reqwest::Url,
-    recurse: bool,
 ) -> Vec<SearchableDocument> {
     let mut documents = Vec::new();
     let url = root.to_string();
