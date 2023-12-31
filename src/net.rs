@@ -1,5 +1,6 @@
 use crate::document;
 use itertools::Itertools;
+use urlnorm;
 use reqwest;
 use select::document::Document;
 use select::predicate::Name;
@@ -21,6 +22,10 @@ gflags::define! {
     --output_dir <OUTPUT_DIR> = "/home/jmq/src/folklore.dev/output/"
 }
 
+lazy_static!{
+    static ref URL_NORMALIZER: urlnorm::UrlNormalizer = urlnorm::UrlNormalizer::default();
+}
+
 #[derive(Serialize, Deserialize)]
 pub struct SearchableDocument {
     pub url: String,
@@ -30,13 +35,18 @@ pub struct SearchableDocument {
     pub links_same_domain: Vec<String>,
 }
 
+pub fn url_to_string(url: &reqwest::Url) -> String {
+    URL_NORMALIZER.compute_normalization_string(url)
+}
+
 pub async fn crawl(
     client: &'static reqwest::Client,
     root: reqwest::Url,
     allowed_domains: &'static HashSet<String>
 ) -> Vec<SearchableDocument> {
     let mut documents = Vec::new();
-    let url = root.to_string();
+    // TODO: Rename root to something more useful.
+    let url = url_to_string(&root);
     let root_document = fetch(client, &root, &url, 0, allowed_domains).await;
 
     if root_document.is_none() {
