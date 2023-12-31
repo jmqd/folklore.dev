@@ -204,8 +204,8 @@ pub async fn fetch(
     match client.get(url).send().await {
         Ok(resp) => parse_document(resp, root, url).await,
         Err(e) => {
-            println!("Error when getting site: {:#?}", e);
             while attempt < 4 {
+                println!("Error when getting site (attempt {}): {}", attempt, e);
                 attempt += 1;
                 time::sleep(time::Duration::from_millis(attempt * 512)).await;
                 match client.get(url).send().await {
