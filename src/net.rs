@@ -41,13 +41,12 @@ pub fn url_to_string(url: &reqwest::Url) -> String {
 
 pub async fn crawl(
     client: &'static reqwest::Client,
-    root: reqwest::Url,
+    url: reqwest::Url,
     allowed_domains: &'static HashSet<String>
 ) -> Vec<SearchableDocument> {
     let mut documents = Vec::new();
     // TODO: Rename root to something more useful.
-    let url = url_to_string(&root);
-    let root_document = fetch(client, &root, &url, 0, allowed_domains).await;
+    let root_document = fetch(client, &url, 0, allowed_domains).await;
 
     if root_document.is_none() {
         eprintln!("Failed to get root_document.");
@@ -63,7 +62,7 @@ pub async fn crawl(
         .collect();
 
     // TODO: Remove this duplication for the root element.
-    let local_fs_path = Path::new(OUTPUT_DIR.flag).join(url_to_filename(url.as_str()));
+    let local_fs_path = Path::new(OUTPUT_DIR.flag).join(url_to_filename(&url));
     if let Some(writeable_doc) = root_document.as_ref() {
         eprintln!("Creating file at {:?}", local_fs_path.as_os_str());
         let mut file = File::create(&local_fs_path).expect("creating file");
@@ -80,8 +79,7 @@ pub async fn crawl(
 
     let mut handles: Vec<task::JoinHandle<Option<SearchableDocument>>> = vec![];
     for url in urls.into_iter().filter(|l| link_looks_interesting(l)) {
-        let root = root.clone();
-        let local_fs_path = Path::new(OUTPUT_DIR.flag).join(url_to_filename(url.as_str()));
+        let local_fs_path = Path::new(OUTPUT_DIR.flag).join(url_to_filename(&url));
 
         if let Ok(_metadata) = std::fs::metadata(&local_fs_path) {
             match serde_json::from_str(&std::fs::read_to_string(&local_fs_path).unwrap()) {
@@ -102,7 +100,7 @@ pub async fn crawl(
         time::sleep(time::Duration::from_millis(64)).await;
 
         handles.push(task::spawn(async move {
-            let searchable_doc = fetch(client, &root, &url.to_string(), 0, allowed_domains).await;
+            let searchable_doc = fetch(client, &url, 0, allowed_domains).await;
 
             if let Some(writeable_doc) = searchable_doc.as_ref() {
                 eprintln!("Creating file at {:?}", local_fs_path.as_os_str());
@@ -129,8 +127,8 @@ pub async fn crawl(
     documents.into_iter().flatten().collect()
 }
 
-pub fn url_to_filename(url: &str) -> String {
-    format!("{}.json", url.replace("://", "_").replace("/", "_").trim_end_matches("_"))
+pub fn url_to_filename(url: &reqwest::Url) -> String {
+    format!("{}.json", url_to_string(url))
 }
 
 fn link_looks_interesting(link: &reqwest::Url) -> bool {
@@ -198,8 +196,7 @@ fn extract_links_same_domain(domain: &Url, document: &Document, allowed_domains:
 
 pub async fn parse_document(
     resp: reqwest::Response,
-    root: &reqwest::Url,
-    url: &str,
+    url: &reqwest::Url,
     allowed_domains: &HashSet<String>
 ) -> Option<SearchableDocument> {
     if let Ok(body) = resp.text().await {
@@ -211,7 +208,7 @@ pub async fn parse_document(
             fetched_at_linux_epoch_secs: SystemTime::now().duration_since(UNIX_EPOCH).map(|d| d.as_secs()).unwrap_or(0),
             title: doc.find(Name("title")).next().map(|t| t.text()).unwrap_or("TODO".to_string()),
             searchable_texts: texts.into_iter().unique().collect(),
-            links_same_domain: extract_links_same_domain(root, &doc, allowed_domains)
+            links_same_domain: extract_links_same_domain(url, &doc, allowed_domains)
                 .into_iter()
                 .map(|u| u.to_string())
                 .collect(),
@@ -223,26 +220,25 @@ pub async fn parse_document(
 
 pub async fn fetch(
     client: &reqwest::Client,
-    root: &reqwest::Url,
-    url: &str,
+    url: &reqwest::Url,
     mut attempt: u64,
     allowed_domains: &HashSet<String>
 ) -> Option<SearchableDocument> {
-    if !allowed_domains.contains(root.domain().unwrap()) {
-        println!("{}", root);
+    if !allowed_domains.contains(url.domain().unwrap()) {
+        println!("{}", url);
         return None;
     }
 
-    match client.get(url).send().await {
-        Ok(resp) => parse_document(resp, root, url, allowed_domains).await,
+    match client.get(url.clone()).send().await {
+        Ok(resp) => parse_document(resp, url, allowed_domains).await,
         Err(e) => {
             while attempt < 4 {
                 println!("Error when getting site (attempt {}): {}", attempt, e);
                 attempt += 1;
                 time::sleep(time::Duration::from_millis(attempt * 512)).await;
-                match client.get(url).send().await {
+                match client.get(url.as_str()).send().await {
                     Ok(resp) => {
-                        return parse_document(resp, root, url, allowed_domains).await;
+                        return parse_document(resp, url, allowed_domains).await;
                     }
                     Err(e) => {
                         eprintln!("Error getting site: {:#?}", e);
