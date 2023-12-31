@@ -29,7 +29,7 @@ pub struct SearchableDocument {
 pub async fn crawl(
     client: &'static reqwest::Client,
     root: reqwest::Url,
-    visited: Arc<Mutex<HashSet<reqwest::Url>>>,
+    recurse: bool,
 ) -> Vec<SearchableDocument> {
     let mut documents = Vec::new();
     let url = root.to_string();
@@ -42,23 +42,45 @@ pub async fn crawl(
         .map(|s| Url::parse(s).expect("Failed to parse URL"))
         .collect();
 
+    // TODO: Remove this duplication for the root element.
+    let local_fs_path = Path::new(OUTPUT_DIR.flag).join(url_to_filename(url.as_str()));
+    if let Some(writeable_doc) = root_document.as_ref() {
+        eprintln!("Creating file at {:?}", local_fs_path.as_os_str());
+        let mut file = File::create(&local_fs_path).expect("creating file");
+        file.write_all(&serde_json::to_vec(writeable_doc).expect("serializing searchabledoc"))
+            .expect("writing searchable doc");
+
+        eprintln!(
+            "Wrote a SearchableDocument to {}",
+            &local_fs_path.to_string_lossy()
+        )
+    }
+
     documents.push(root_document);
 
     let mut handles: Vec<task::JoinHandle<Option<SearchableDocument>>> = vec![];
-    for url in urls.into_iter().filter(|l| {
-        link_looks_interesting(l) && !visited.lock().expect("unlocking visited").contains(l)
-    }) {
+    for url in urls.into_iter().filter(|l| link_looks_interesting(l)) {
         let root = root.clone();
         let local_fs_path = Path::new(OUTPUT_DIR.flag).join(url_to_filename(url.as_str()));
 
         if let Ok(metadata) = std::fs::metadata(&local_fs_path) {
-            continue;
+            match serde_json::from_str(&std::fs::read_to_string(&local_fs_path).unwrap()) {
+                Ok(f) => {
+                    print!("H");
+                    handles.push(task::spawn(async move { return f }));
+                    continue;
+                }
+                Err(e) => {
+                    println!("{}", local_fs_path.display());
+                    panic!("failed to demarshal");
+                }
+            }
         }
 
         handles.push(task::spawn(async move {
             let searchable_doc = fetch(client, &root, &url.to_string(), 0).await;
 
-            if let Some(ref writeable_doc) = searchable_doc {
+            if let Some(writeable_doc) = searchable_doc.as_ref() {
                 eprintln!("Creating file at {:?}", local_fs_path.as_os_str());
                 let mut file = File::create(&local_fs_path).expect("creating file");
                 file.write_all(
@@ -91,12 +113,19 @@ fn link_looks_interesting(link: &reqwest::Url) -> bool {
     let s = link.to_string();
     lazy_static! {
         static ref DISALLOWED_ENDINGS: Vec<&'static str> = vec![
-            ".pdf", ".png", ".jpg", ".jpeg", ".gif", ".xml", ".rss", ".css", ".js", ".mov", ".svg",
-            ".ps", ".Z", ".zip", ".gz", ".rar"
+            "pdf", "png", "jpg", "jpeg", "gif", "xml", "rss", "css", "js", "mov", "svg", "ps", "Z",
+            "zip", "gz", "rar", "json"
         ];
     }
 
-    DISALLOWED_ENDINGS.iter().all(|ending| !s.to_ascii_lowercase().ends_with(ending))
+    if let Some(extension_index) = s.find('.') {
+        let extension = &s[extension_index..];
+        DISALLOWED_ENDINGS
+            .iter()
+            .all(|ending| !extension.to_ascii_lowercase().contains(ending))
+    } else {
+        true
+    }
 }
 
 fn extract_links_same_domain(domain: &Url, document: &Document) -> Vec<Url> {
@@ -144,12 +173,6 @@ fn extract_links_same_domain(domain: &Url, document: &Document) -> Vec<Url> {
         }
     });
 
-    if domain.as_str().starts_with("https://aws.") {
-        for url in urls.iter() {
-            println!("{}", url.path());
-        }
-    }
-
     urls
 }
 
@@ -160,10 +183,6 @@ pub async fn parse_document(
 ) -> Option<SearchableDocument> {
     if let Ok(body) = resp.text().await {
         let doc = document::resp_to_document(body).await;
-        if url.starts_with("https://aws.amazon") {
-            println!("{:#?}", doc);
-        }
-
         document::extract_texts(doc.as_ref()).map(|t| SearchableDocument {
             url: url.to_string(),
             searchable_texts: t,
