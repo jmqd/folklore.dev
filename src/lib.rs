@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 pub mod document;
 pub mod net;
 
-use net::SearchableDocument;
+
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Config {
