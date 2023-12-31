@@ -119,7 +119,7 @@ fn link_looks_interesting(link: &reqwest::Url) -> bool {
     lazy_static! {
         static ref DISALLOWED_ENDINGS: Vec<&'static str> = vec![
             "pdf", "png", "jpg", "jpeg", "gif", "xml", "rss", "css", "js", "mov", "svg", "ps", "Z",
-            "zip", "gz", "rar", "json"
+            "zip", "gz", "rar", "json", "webp"
         ];
     }
 
