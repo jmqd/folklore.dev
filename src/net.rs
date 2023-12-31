@@ -120,7 +120,7 @@ pub async fn crawl(
 }
 
 pub fn url_to_filename(url: &str) -> String {
-    format!("{}.json", url.replace("://", "_").replace("/", "_")).trim_end_matches("_").to_string()
+    format!("{}.json", url.replace("://", "_").replace("/", "_").trim_end_matches("_"))
 }
 
 fn link_looks_interesting(link: &reqwest::Url) -> bool {
