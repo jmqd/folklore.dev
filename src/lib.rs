@@ -5,8 +5,6 @@ use serde::{Deserialize, Serialize};
 pub mod document;
 pub mod net;
 
-
-
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Config {
     pub websites: Vec<Website>,
