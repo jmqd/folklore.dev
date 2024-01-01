@@ -7,10 +7,11 @@ pub async fn resp_to_document(resp_body: String) -> Option<Document> {
 }
 
 pub fn extract_texts(document: &Document) -> Vec<String> {
-    document.find(Text)
+    document
+        .find(Text)
         .into_iter()
         .filter_map(|n| find_searchable_text(n.text()))
-            .collect()
+        .collect()
 }
 
 fn find_searchable_text(s: String) -> Option<String> {
